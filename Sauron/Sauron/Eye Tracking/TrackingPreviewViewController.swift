@@ -15,7 +15,8 @@ class TrackingPreviewViewController: ViewController {
 
     private let sceneView = ARSCNView()
     private lazy var focusView = UIView()
-    private let slider = UISlider()
+    private let pitchSlider = UISlider()
+    private let rangeSlider = UISlider()
     
     private let nodeVirtualPad = SCNNode()
     private let nodeFace = SCNNode()
@@ -28,6 +29,7 @@ class TrackingPreviewViewController: ViewController {
     private lazy var nodeFocus = createFocusPoint()
     
     private let height: CGFloat = 0.4
+    private var padDistance: Float = 0.08
     
     private var pastPositions: [simd_float3] = []
 
@@ -84,27 +86,37 @@ extension TrackingPreviewViewController {
         focusView.backgroundColor = .blue
         view.addSubview(focusView)
         
-        slider.minimumValue = .pi / 2 - 0.5
-        slider.maximumValue = .pi / 2 + 0.5
-        slider.value = 1.6
-        slider.addTarget(self, action: #selector(didSlide), for: .valueChanged)
-        view.addSubview(slider)
+        pitchSlider.minimumValue = .pi / 2 - 0.5
+        pitchSlider.maximumValue = .pi / 2 + 0.5
+        pitchSlider.value = 1.6
+        pitchSlider.addTarget(self, action: #selector(didSlidePitchSlider), for: .valueChanged)
+        view.addSubview(pitchSlider)
+        
+        rangeSlider.minimumValue = 0.03
+        rangeSlider.maximumValue = 0.13
+        rangeSlider.value = padDistance
+        rangeSlider.addTarget(self, action: #selector(didSlideRangeSlider), for: .valueChanged)
+        view.addSubview(rangeSlider)
     }
     
-    @objc func didSlide() {
+    @objc func didSlidePitchSlider() {
         [nodeEyeTargetLeft, nodeEyeTargetRight].forEach { (node) in
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, 2, 0)
-            transform = SCNMatrix4Rotate(transform, slider.value, 1, 0, 0)
+            transform = SCNMatrix4Rotate(transform, pitchSlider.value, 1, 0, 0)
             node?.transform = transform
         }
         
         [nodeEyeBeamLeft, nodeEyeBeamRight].forEach { (node) in
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, Float(height) / 2, 0)
-            transform = SCNMatrix4Rotate(transform, slider.value, 1, 0, 0)
+            transform = SCNMatrix4Rotate(transform, pitchSlider.value, 1, 0, 0)
             node?.transform = transform
         }
+    }
+    
+    @objc func didSlideRangeSlider() {
+        padDistance = rangeSlider.value
     }
     
     private func configureConstraints() {
@@ -112,8 +124,13 @@ extension TrackingPreviewViewController {
             make.edges.equalToSuperview()
         }
         
-        slider.snp.makeConstraints { (make) in
+        pitchSlider.snp.makeConstraints { (make) in
             make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+        
+        rangeSlider.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(pitchSlider)
+            make.bottom.equalTo(pitchSlider.snp.top).offset(-20)
         }
     }
     
@@ -191,7 +208,7 @@ extension TrackingPreviewViewController {
         let targetY = (nodeEyeTargetLeft!.worldPosition.y + nodeEyeTargetRight!.worldPosition.y) / 2
         let targetZ = (nodeEyeTargetLeft!.worldPosition.z + nodeEyeTargetRight!.worldPosition.z) / 2
         
-        let cc = Float(-0.08)
+        let cc = Float(-padDistance)
         let aa = ((eyeX * targetZ - targetX * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
         let bb = ((eyeY * targetZ - targetY * eyeZ + (targetY - eyeY) * cc) / (targetZ - eyeZ))
         
