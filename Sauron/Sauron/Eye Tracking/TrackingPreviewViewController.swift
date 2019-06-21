@@ -104,8 +104,8 @@ extension TrackingPreviewViewController {
         rangeSlider.addTarget(self, action: #selector(didSlideRangeSlider), for: .valueChanged)
         view.addSubview(rangeSlider)
         
-        rollSlider.minimumValue = -0.1
-        rollSlider.maximumValue = 0.1
+        rollSlider.minimumValue = -0.5
+        rollSlider.maximumValue = 0.5
         rollSlider.value = 0
         rollSlider.addTarget(self, action: #selector(didSliderRollSlider), for: .valueChanged)
         view.addSubview(rollSlider)
