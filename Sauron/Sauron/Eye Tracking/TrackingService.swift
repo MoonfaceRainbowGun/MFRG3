@@ -38,5 +38,8 @@ extension TrackingService {
         var blinkCloseThreshold: CGFloat = 0.8
         
         var dogEyeDismissDuration: Double = 0.2
+        var smoothNess: Int = 10
+        var smoothNessMin: Int = 1
+        var smoothNessMax: Int = 20
     }
 }
