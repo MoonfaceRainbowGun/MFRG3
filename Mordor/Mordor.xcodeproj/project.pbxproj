@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CD68F7622BD7D9D00EAC565 /* beam.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 2CD68F7422BD7D9D00EAC565 /* beam.scnp */; };
+		2CD68F7722BD7D9D00EAC565 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD68F7522BD7D9D00EAC565 /* spark.png */; };
 		A03FCEAB22BD46A0006A6695 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */; };
 		A03FCEAD22BD46A0006A6695 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */; };
 		A03FCEB422BD46A0006A6695 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB222BD46A0006A6695 /* Main.storyboard */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2CD68F7422BD7D9D00EAC565 /* beam.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = beam.scnp; sourceTree = "<group>"; };
+		2CD68F7522BD7D9D00EAC565 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		860AE0E7AEB45E9BF820901F /* Pods-Mordor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mordor.debug.xcconfig"; path = "Target Support Files/Pods-Mordor/Pods-Mordor.debug.xcconfig"; sourceTree = "<group>"; };
 		A03FCEA722BD46A0006A6695 /* Mordor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mordor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +65,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2CD68F7322BD7D9D00EAC565 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2CD68F7422BD7D9D00EAC565 /* beam.scnp */,
+				2CD68F7522BD7D9D00EAC565 /* spark.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		85D8F5E2EA24F7EB95D4BA97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +103,7 @@
 		A03FCEA922BD46A0006A6695 /* Mordor */ = {
 			isa = PBXGroup;
 			children = (
+				2CD68F7322BD7D9D00EAC565 /* Resources */,
 				BF040F3522BD627200E47122 /* ContentViewer */,
 				BF040F3822BD627200E47122 /* Eye Tracking */,
 				A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */,
@@ -184,6 +198,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CD68F7722BD7D9D00EAC565 /* spark.png in Resources */,
+				2CD68F7622BD7D9D00EAC565 /* beam.scnp in Resources */,
 				A03FCEB922BD46A1006A6695 /* LaunchScreen.storyboard in Resources */,
 				A03FCEB622BD46A1006A6695 /* Assets.xcassets in Resources */,
 				A03FCEB422BD46A0006A6695 /* Main.storyboard in Resources */,
@@ -394,13 +410,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DJHPY9N63F;
+				DEVELOPMENT_TEAM = Y759WLYUGN;
 				INFOPLIST_FILE = Mordor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bohan.Mordor;
+				PRODUCT_BUNDLE_IDENTIFIER = bohan.Mordor1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -413,13 +429,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DJHPY9N63F;
+				DEVELOPMENT_TEAM = Y759WLYUGN;
 				INFOPLIST_FILE = Mordor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bohan.Mordor;
+				PRODUCT_BUNDLE_IDENTIFIER = bohan.Mordor1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

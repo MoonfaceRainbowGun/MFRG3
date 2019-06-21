@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CD68F6822BD735100EAC565 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD68F6622BD735100EAC565 /* Assets.xcassets */; };
+		2CD68F7022BD74C500EAC565 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD68F6E22BD74C500EAC565 /* spark.png */; };
 		55BA5A03E94F298835A75311 /* Pods_Sauron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2330F509A250F83F08C97F44 /* Pods_Sauron.framework */; };
 		A03FCE6622BCDDC6006A6695 /* ContentScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCE6522BCDDC6006A6695 /* ContentScrollViewController.swift */; };
 		A03FCE6B22BCDF34006A6695 /* 新闻联播片头曲.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A03FCE6A22BCDF34006A6695 /* 新闻联播片头曲.jpg */; };
@@ -19,12 +21,15 @@
 		BF040F2C22BC936300E47122 /* TrackingPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */; };
 		BF040F3022BD244700E47122 /* TrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2F22BD244700E47122 /* TrackingService.swift */; };
 		BF040F3422BD325D00E47122 /* TrackingControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F3322BD325D00E47122 /* TrackingControlView.swift */; };
+		DF91B7ED22BD4C8F00EE09D6 /* beam.scnp in Resources */ = {isa = PBXBuildFile; fileRef = DF91B7EB22BD4C8F00EE09D6 /* beam.scnp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		17C25154E4F33F54B62A6155 /* Pods-Sauron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sauron.release.xcconfig"; path = "Target Support Files/Pods-Sauron/Pods-Sauron.release.xcconfig"; sourceTree = "<group>"; };
 		1E8E7798AE91FFEAF426FCBE /* Pods-Sauron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sauron.debug.xcconfig"; path = "Target Support Files/Pods-Sauron/Pods-Sauron.debug.xcconfig"; sourceTree = "<group>"; };
 		2330F509A250F83F08C97F44 /* Pods_Sauron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sauron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CD68F6622BD735100EAC565 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CD68F6E22BD74C500EAC565 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		A03FCE6522BCDDC6006A6695 /* ContentScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScrollViewController.swift; sourceTree = "<group>"; };
 		A03FCE6A22BCDF34006A6695 /* 新闻联播片头曲.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "新闻联播片头曲.jpg"; sourceTree = "<group>"; };
 		A03FCE6D22BCE03A006A6695 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +43,7 @@
 		BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPreviewViewController.swift; sourceTree = "<group>"; };
 		BF040F2F22BD244700E47122 /* TrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingService.swift; sourceTree = "<group>"; };
 		BF040F3322BD325D00E47122 /* TrackingControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingControlView.swift; sourceTree = "<group>"; };
+		DF91B7EB22BD4C8F00EE09D6 /* beam.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = beam.scnp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +61,10 @@
 		A03FCE6722BCDE39006A6695 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2CD68F6E22BD74C500EAC565 /* spark.png */,
+				DF91B7EB22BD4C8F00EE09D6 /* beam.scnp */,
 				A03FCE6A22BCDF34006A6695 /* 新闻联播片头曲.jpg */,
+				2CD68F6622BD735100EAC565 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -190,8 +199,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF91B7ED22BD4C8F00EE09D6 /* beam.scnp in Resources */,
 				BF040F2322BC92E400E47122 /* LaunchScreen.storyboard in Resources */,
 				BF040F2022BC92E400E47122 /* Assets.xcassets in Resources */,
+				2CD68F6822BD735100EAC565 /* Assets.xcassets in Resources */,
+				2CD68F7022BD74C500EAC565 /* spark.png in Resources */,
 				BF040F1E22BC92E300E47122 /* Main.storyboard in Resources */,
 				A03FCE6B22BCDF34006A6695 /* 新闻联播片头曲.jpg in Resources */,
 			);
@@ -405,13 +417,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SWZT2N435K;
+				DEVELOPMENT_TEAM = Y759WLYUGN;
 				INFOPLIST_FILE = Sauron/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.seagroup.Sauron1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.seagroup.Sauron13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -424,13 +437,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SWZT2N435K;
+				DEVELOPMENT_TEAM = Y759WLYUGN;
 				INFOPLIST_FILE = Sauron/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.seagroup.Sauron1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.seagroup.Sauron13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
