@@ -32,6 +32,11 @@ class TrackingPreviewViewController: ViewController {
     private var padDistance: Float = 0.08
     
     private var pastPositions: [simd_float3] = []
+    
+    private var blinkOpenThreshold: CGFloat = 0.2
+    private var blinkCloseThreshold: CGFloat = 0.8
+    private var blinkLeftInProgress = false
+    private var blinkRightInProgress = false
 
     var virtualScreenNode: SCNNode = {
         let screenGeometry = SCNPlane(width: 1, height: 1)
@@ -197,6 +202,24 @@ extension TrackingPreviewViewController {
 // MARK: Update
 extension TrackingPreviewViewController {
     private func update(faceAnchor: ARFaceAnchor) {
+        if let value = faceAnchor.blendShapes[.eyeBlinkLeft]?.floatValue {
+            if !blinkLeftInProgress && CGFloat(value) > blinkCloseThreshold {
+                blinkLeftInProgress = true
+            } else if blinkLeftInProgress && CGFloat(value) < blinkOpenThreshold {
+                blinkLeftInProgress = false
+                print(" Blink my right eye!")
+            }
+        }
+        
+        if let value = faceAnchor.blendShapes[.eyeBlinkRight]?.floatValue {
+            if !blinkRightInProgress && CGFloat(value) > blinkCloseThreshold {
+                blinkRightInProgress = true
+            } else if blinkRightInProgress && CGFloat(value) < blinkOpenThreshold {
+                blinkRightInProgress = false
+                print(" Blink my left eye!")
+            }
+        }
+
         nodeEyeLeft.simdTransform = faceAnchor.leftEyeTransform
         nodeEyeRight.simdTransform = faceAnchor.rightEyeTransform
         
