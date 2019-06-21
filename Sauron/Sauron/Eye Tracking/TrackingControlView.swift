@@ -15,10 +15,12 @@ protocol TrackingControlDelegate: NSObjectProtocol {
 class TrackingControlView: UIView {
     weak var delegate: TrackingControlDelegate?
     
-    private let backgroundView = UIVisualEffectView(effect: UIBlurEffect.init(style: .dark))
-    private let pitchSlider = UISlider()
-    private let rangeSlider = UISlider()
-    private let rollSlider = UISlider()
+    private let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    private let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .dark)))
+    private let smoothSlider = UISlider()
+    private let smoothLabel = UILabel()
+    private let responsiveLabel = UILabel()
+    private let stackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,65 +36,92 @@ class TrackingControlView: UIView {
     private func configureViews() {
         addSubview(backgroundView)
         
-        pitchSlider.minimumValue = TrackingService.shared.config.verticalMin
-        pitchSlider.maximumValue = TrackingService.shared.config.verticalMax
-        pitchSlider.value = TrackingService.shared.config.vertical
-        pitchSlider.addTarget(self, action: #selector(didSlidePitchSlider), for: .valueChanged)
-        addSubview(pitchSlider)
-        
-        rangeSlider.minimumValue = TrackingService.shared.config.rangeMin
-        rangeSlider.maximumValue = TrackingService.shared.config.rangeMax
-        rangeSlider.value = TrackingService.shared.config.range
-        rangeSlider.addTarget(self, action: #selector(didSlideRangeSlider), for: .valueChanged)
-        addSubview(rangeSlider)
-        
-        rollSlider.minimumValue = TrackingService.shared.config.horizontalMin
-        rollSlider.maximumValue = TrackingService.shared.config.horizontalMax
-        rollSlider.value = TrackingService.shared.config.horizontal
-        rollSlider.addTarget(self, action: #selector(didSliderRollSlider), for: .valueChanged)
-        addSubview(rollSlider)
+        smoothSlider.minimumValue = Float(TrackingService.shared.config.smoothNessMin)
+        smoothSlider.maximumValue = Float(TrackingService.shared.config.smoothNessMax)
+        smoothSlider.value = Float(TrackingService.shared.config.smoothNess)
+        smoothSlider.addTarget(self, action: #selector(didSlideSmoothSlider), for: .valueChanged)
         
         
-        clipsToBounds = true
-        layer.cornerRadius = 20
+        responsiveLabel.text = "Responsive"
+        responsiveLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        stackView.addArrangedSubview(responsiveLabel)
+        
+        
+        stackView.addArrangedSubview(smoothSlider)
+        
+        smoothLabel.text = "Smooth"
+        smoothLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        stackView.addArrangedSubview(smoothLabel)
+        
+        stackView.spacing = 10
+        
+        vibrancyView.contentView.addSubview(stackView)
+        backgroundView.contentView.addSubview(vibrancyView)
+        
+        backgroundView.clipsToBounds = true
+        backgroundView.layer.cornerRadius = 30
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(didPan(gesture:)))
+        addGestureRecognizer(pan)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(gesture:)))
+        addGestureRecognizer(pinch)
+    }
+    
+    var startVertical: Float?
+    var startHorizontal: Float?
+    
+    @objc
+    func didPan(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            startVertical = TrackingService.shared.config.vertical
+            startHorizontal = TrackingService.shared.config.horizontal
+        case .changed:
+            let translation = gesture.translation(in: self)
+            guard let startV = startVertical, let startH = startHorizontal else { return }
+            
+            TrackingService.shared.config.vertical = startV + Float(translation.y * 0.001)
+            TrackingService.shared.config.horizontal = startH + Float(translation.x * 0.001)
+            delegate?.didUpdate()
+        default: break
+        }
+    }
+    
+    var startRange: Float?
+    @objc
+    func didPinch(gesture: UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            startRange = TrackingService.shared.config.range
+        case .changed:
+            let diff = Float(1 - gesture.scale)
+            var new = TrackingService.shared.config.range + diff * 0.0005
+            new = min(new, TrackingService.shared.config.rangeMax)
+            new = max(new, TrackingService.shared.config.rangeMin)
+            TrackingService.shared.config.range = new
+        default: break
+        }
     }
     
     @objc
-    func didSlidePitchSlider() {
-        TrackingService.shared.config.vertical = pitchSlider.value
-        delegate?.didUpdate()
+    func didSlideSmoothSlider() {
+        TrackingService.shared.config.smoothNess = Int(smoothSlider.value)
     }
-    
-    @objc
-    func didSlideRangeSlider() {
-        TrackingService.shared.config.range = rangeSlider.value
-        delegate?.didUpdate()
-    }
-    
-    @objc
-    func didSliderRollSlider() {
-        TrackingService.shared.config.horizontal = rollSlider.value
-        delegate?.didUpdate()
-    }
-    
+     
     private func configureConstraints() {
-        rollSlider.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(20)
-            make.leading.trailing.equalTo(rangeSlider)
-            make.bottom.equalTo(rangeSlider.snp.top).offset(-20)
+        vibrancyView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         
-        rangeSlider.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(pitchSlider)
-            make.bottom.equalTo(pitchSlider.snp.top).offset(-20)
-        }
-        
-        pitchSlider.snp.makeConstraints { (make) in
-            make.leading.trailing.bottom.equalTo(safeAreaLayoutGuide).inset(20)
+        stackView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.bottom.equalToSuperview()
         }
         
         backgroundView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview().inset(20)
+            make.height.equalTo(60)
         }
     }
 }

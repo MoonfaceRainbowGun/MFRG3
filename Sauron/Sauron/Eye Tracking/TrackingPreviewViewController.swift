@@ -125,7 +125,7 @@ extension TrackingPreviewViewController {
         }
         
         controlView.snp.makeConstraints { (make) in
-            make.leading.trailing.bottom.equalToSuperview().inset(20)
+            make.edges.equalToSuperview()
         }
         
         imageView.snp.makeConstraints { (make) in
@@ -253,7 +253,7 @@ extension TrackingPreviewViewController {
     
     private func updateTargetPosition(position: simd_float3) {
         pastPositions.append(position)
-        let lastTen = pastPositions.suffix(10)
+        let lastTen = pastPositions.suffix(TrackingService.shared.config.smoothNess)
         var sumX: Float = 0.0
         var sumY: Float = 0.0
         var sumZ: Float = 0.0
@@ -266,6 +266,10 @@ extension TrackingPreviewViewController {
         sumY /= Float(lastTen.count)
         sumZ /= Float(lastTen.count)
         nodeFocus.worldPosition = SCNVector3(x: sumX, y: sumY, z: sumZ)
+        
+        if pastPositions.count > 1000 {
+            pastPositions = Array(lastTen)
+        }
     }
     
     private func update(node: SCNNode, anchor: ARAnchor) {
