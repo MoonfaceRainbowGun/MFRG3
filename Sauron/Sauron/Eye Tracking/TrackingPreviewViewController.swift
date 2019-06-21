@@ -197,24 +197,17 @@ extension TrackingPreviewViewController {
             let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: config.sightConeLength)
 
             geometry.radialSegmentCount = 10
-            geometry.firstMaterial?.diffuse.contents = UIColor.yellow.withAlphaComponent(0.7)
+            geometry.firstMaterial?.diffuse.contents = UIColor.yellow.withAlphaComponent(0)
             let node = SCNNode()
             node.geometry = geometry
-
-            let beam = SCNParticleSystem(named: "beam.scnp", inDirectory: nil)!
-            beam.emitterShape = geometry
-            
-            let nodeBeam = SCNNode()
-            var transformBeam = SCNMatrix4Identity
-            transformBeam = SCNMatrix4Translate(transformBeam, 0, 0, -20)
-            node.transform = transformBeam
-            nodeBeam.addParticleSystem(beam)
-            node.addChildNode(nodeBeam)
             
             var transform = SCNMatrix4Identity
-            transform = SCNMatrix4Translate(transform, 0, Float(config.sightConeLength) / 2, 0)
+            transform = SCNMatrix4Translate(transform, 0, 0, 0)
             transform = SCNMatrix4Rotate(transform, 1.6, 1, 0, 0)
             node.transform = transform
+            
+            let beam = SCNParticleSystem(named: "beam.scnp", inDirectory: nil)!
+            node.addParticleSystem(beam)
             
             if isLeft {
                 nodeEyeBeamLeft = node
