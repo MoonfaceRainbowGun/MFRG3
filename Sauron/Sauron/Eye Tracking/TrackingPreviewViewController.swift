@@ -14,6 +14,7 @@ import SnapKit
 class TrackingPreviewViewController: ViewController {
 
     private let sceneView = ARSCNView()
+    private lazy var focusView = UIView()
     
     private let nodeVirtualPad = SCNNode()
     private let nodeFace = SCNNode()
@@ -75,6 +76,9 @@ extension TrackingPreviewViewController {
         nodeRoot.addChildNode(nodeFocus)
         
         view.addSubview(sceneView)
+        focusView.frame.size = CGSize(width: 30, height: 30)
+        focusView.backgroundColor = .blue
+        view.addSubview(focusView)
     }
     
     private func configureConstraints() {
@@ -154,7 +158,7 @@ extension TrackingPreviewViewController {
         
         let cc = Float(-0.1)
         let aa = ((eyeX * targetZ - targetX * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
-        let bb = ((eyeY * targetZ - targetY * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ)) + 0.07
+        let bb = ((eyeY * targetZ - targetY * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
         
         
         updateTargetPosition(position: simd_float3(x: aa, y: bb, z: cc))
@@ -182,6 +186,16 @@ extension TrackingPreviewViewController {
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
         update(faceAnchor: faceAnchor)
     }
+    
+    private func notifyUpdate(renderer: SCNSceneRenderer) {
+        let node = nodeFocus
+        let positionOnScreen = renderer.projectPoint(node.position)
+        let point = CGPoint(
+            x: CGFloat(positionOnScreen.x),
+            y: CGFloat(positionOnScreen.y)
+        )
+        focusView.center = point
+    }
 }
 
 // MARK: ARSCNViewDelegate
@@ -189,6 +203,7 @@ extension TrackingPreviewViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         DispatchQueue.main.async {
             self.update(node: node, anchor: anchor)
+            self.notifyUpdate(renderer: renderer)
         }
     }
     
@@ -196,12 +211,14 @@ extension TrackingPreviewViewController: ARSCNViewDelegate {
         DispatchQueue.main.async {
             guard let sceneTransformInfo = self.sceneView.pointOfView?.transform else { return }
             self.nodeVirtualPad.transform = sceneTransformInfo
+            self.notifyUpdate(renderer: renderer)
         }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         DispatchQueue.main.async {
             self.update(node: node, anchor: anchor)
+            self.notifyUpdate(renderer: renderer)
         }
     }
 }
