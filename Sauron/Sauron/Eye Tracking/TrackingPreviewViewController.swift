@@ -12,6 +12,8 @@ import ARKit
 import SnapKit
 
 class TrackingPreviewViewController: ViewController {
+    
+    var didDetectDoubleBlink: () -> () = {}
 
     private let sceneView = ARSCNView()
     private lazy var focusView = UIView()
@@ -31,6 +33,8 @@ class TrackingPreviewViewController: ViewController {
     private var pastPositions: [simd_float3] = []
     private var blinkLeftInProgress = false
     private var blinkRightInProgress = false
+    private var prevBlinkDate = Date()
+    private let doubleBlinkTimeInterval = TimeInterval(1)
     
     private var config: TrackingService.Config {
         return TrackingService.shared.config
@@ -221,12 +225,15 @@ extension TrackingPreviewViewController {
     private func update(faceAnchor: ARFaceAnchor) {
         self.configureTimer()
 
+        var blinkLeft = false
+        var blinkRight = false
+        
         if let value = faceAnchor.blendShapes[.eyeBlinkLeft]?.floatValue {
             if !blinkLeftInProgress && CGFloat(value) > config.blinkCloseThreshold {
                 blinkLeftInProgress = true
             } else if blinkLeftInProgress && CGFloat(value) < config.blinkOpenThreshold {
                 blinkLeftInProgress = false
-                print(" Blink my right eye!")
+                blinkLeft = true
             }
         }
         
@@ -235,8 +242,18 @@ extension TrackingPreviewViewController {
                 blinkRightInProgress = true
             } else if blinkRightInProgress && CGFloat(value) < config.blinkOpenThreshold {
                 blinkRightInProgress = false
-                print(" Blink my left eye!")
+                blinkRight = true
             }
+        }
+        
+        if blinkLeft && blinkRight {
+            let date = Date()
+            
+            if date.timeIntervalSince(prevBlinkDate) < doubleBlinkTimeInterval {
+                didDetectDoubleBlink()
+            }
+            
+            prevBlinkDate = date
         }
 
         nodeEyeLeft.simdTransform = faceAnchor.leftEyeTransform
