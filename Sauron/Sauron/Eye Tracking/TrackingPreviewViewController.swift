@@ -23,7 +23,6 @@ class TrackingPreviewViewController: ViewController {
     
     var virtualScreenNode: SCNNode = {
         let screenGeometry = SCNPlane(width: 1, height: 1)
-        // SceneKit이 표면의 앞면과 뒷면을 렌더링 해야하는지 여부를 결정
         screenGeometry.firstMaterial?.isDoubleSided = true
         screenGeometry.firstMaterial?.diffuse.contents = UIColor.green
         let vsNode = SCNNode()
