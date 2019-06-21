@@ -15,12 +15,19 @@ class TrackingPreviewViewController: ViewController {
 
     private let sceneView = ARSCNView()
     private lazy var focusView = UIView()
+    private let slider = UISlider()
     
     private let nodeVirtualPad = SCNNode()
     private let nodeFace = SCNNode()
-    private lazy var nodeEyeLeft = createDogEyeLightBeam()
-    private lazy var nodeEyeRight = createDogEyeLightBeam()
+    private lazy var nodeEyeLeft = createDogEyeLightBeam(isLeft: true)
+    private lazy var nodeEyeRight = createDogEyeLightBeam(isLeft: false)
+    private var nodeEyeTargetLeft: SCNNode?
+    private var nodeEyeTargetRight: SCNNode?
+    private var nodeEyeBeamLeft: SCNNode?
+    private var nodeEyeBeamRight: SCNNode?
     private lazy var nodeFocus = createFocusPoint()
+    
+    private let height: CGFloat = 0.4
     
     private var pastPositions: [simd_float3] = []
 
@@ -32,9 +39,6 @@ class TrackingPreviewViewController: ViewController {
         vsNode.geometry = screenGeometry
         return vsNode
     }()
-    
-    private var nodeEyeTargetLeft: SCNNode?
-    private var nodeEyeTargetRight: SCNNode?
     
     
     override func viewDidLoad() {
@@ -79,16 +83,41 @@ extension TrackingPreviewViewController {
         focusView.frame.size = CGSize(width: 30, height: 30)
         focusView.backgroundColor = .blue
         view.addSubview(focusView)
+        
+        slider.minimumValue = .pi / 2 - 0.5
+        slider.maximumValue = .pi / 2 + 0.5
+        slider.value = 1.6
+        slider.addTarget(self, action: #selector(didSlide), for: .valueChanged)
+        view.addSubview(slider)
+    }
+    
+    @objc func didSlide() {
+        [nodeEyeTargetLeft, nodeEyeTargetRight].forEach { (node) in
+            var transform = SCNMatrix4Identity
+            transform = SCNMatrix4Translate(transform, 0, 2, 0)
+            transform = SCNMatrix4Rotate(transform, slider.value, 1, 0, 0)
+            node?.transform = transform
+        }
+        
+        [nodeEyeBeamLeft, nodeEyeBeamRight].forEach { (node) in
+            var transform = SCNMatrix4Identity
+            transform = SCNMatrix4Translate(transform, 0, Float(height) / 2, 0)
+            transform = SCNMatrix4Rotate(transform, slider.value, 1, 0, 0)
+            node?.transform = transform
+        }
     }
     
     private func configureConstraints() {
         sceneView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        slider.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
     }
     
-    private func createDogEyeLightBeam() -> SCNNode {
-        let height: CGFloat = 0.4
+    private func createDogEyeLightBeam(isLeft: Bool) -> SCNNode {
         let parentNode = SCNNode()
         
         do {
@@ -97,15 +126,21 @@ extension TrackingPreviewViewController {
             geometry.radialSegmentCount = 10
             geometry.firstMaterial?.diffuse.contents = UIColor.yellow
             
-            let eyeNode = SCNNode()
-            eyeNode.geometry = geometry
+            let node = SCNNode()
+            node.geometry = geometry
             
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, Float(height) / 2, 0)
-            transform = SCNMatrix4Rotate(transform, 1.5, 1, 0, 0)
-            eyeNode.transform = transform
+            transform = SCNMatrix4Rotate(transform, 1.6, 1, 0, 0)
+            node.transform = transform
             
-            parentNode.addChildNode(eyeNode)
+            if isLeft {
+                nodeEyeBeamLeft = node
+            } else {
+                nodeEyeBeamRight = node
+            }
+            
+            parentNode.addChildNode(node)
         }
         
         
@@ -118,12 +153,12 @@ extension TrackingPreviewViewController {
             
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, 2, 0)
-            transform = SCNMatrix4Rotate(transform, 1.5, 1, 0, 0)
+            transform = SCNMatrix4Rotate(transform, 1.6, 1, 0, 0)
             target.transform = transform
             
             parentNode.addChildNode(target)
             
-            if nodeEyeTargetLeft == nil {
+            if isLeft {
                 nodeEyeTargetLeft = target
             } else {
                 nodeEyeTargetRight = target
@@ -135,7 +170,7 @@ extension TrackingPreviewViewController {
     
     private func createFocusPoint() -> SCNNode {
         let node = SCNNode()
-        let geometry = SCNSphere(radius: 0.005)
+        let geometry = SCNSphere(radius: 0.002)
         geometry.firstMaterial?.diffuse.contents = UIColor.red
         node.geometry = geometry
         return node
@@ -156,9 +191,9 @@ extension TrackingPreviewViewController {
         let targetY = (nodeEyeTargetLeft!.worldPosition.y + nodeEyeTargetRight!.worldPosition.y) / 2
         let targetZ = (nodeEyeTargetLeft!.worldPosition.z + nodeEyeTargetRight!.worldPosition.z) / 2
         
-        let cc = Float(-0.1)
+        let cc = Float(-0.08)
         let aa = ((eyeX * targetZ - targetX * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
-        let bb = ((eyeY * targetZ - targetY * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
+        let bb = ((eyeY * targetZ - targetY * eyeZ + (targetY - eyeY) * cc) / (targetZ - eyeZ))
         
         
         updateTargetPosition(position: simd_float3(x: aa, y: bb, z: cc))
