@@ -56,8 +56,6 @@ extension TrackingPreviewViewController {
         nodeRoot.addChildNode(nodeFace)
         nodeFace.addChildNode(nodeEyeLeft)
         nodeFace.addChildNode(nodeEyeRight)
-        nodeFace.transform = SCNMatrix4MakeRotation(.pi / 4, 1, 0, 0)
-        
         
         nodeEyeLeft.addChildNode(nodeEyeTargetLeft)
         nodeEyeRight.addChildNode(nodeEyeTargetRight)
@@ -78,7 +76,8 @@ extension TrackingPreviewViewController {
     }
     
     private func createDogEyeLightBeam() -> SCNNode {
-        let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: 0.15)
+        let height: CGFloat = 0.2
+        let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: height)
         
         geometry.radialSegmentCount = 10
         geometry.firstMaterial?.diffuse.contents = UIColor.yellow
@@ -86,6 +85,14 @@ extension TrackingPreviewViewController {
         let eyeNode = SCNNode()
         eyeNode.geometry = geometry
         eyeNode.eulerAngles.x = -.pi / 2
+        
+        
+        let child = SCNNode()
+        let geo = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: height)
+        child.geometry = geo
+        child.localTranslate(by: SCNVector3Make(0, -0.2, 0))
+        geo.firstMaterial?.diffuse.contents = UIColor.red
+        eyeNode.addChildNode(child)
         
         eyeNode.position.z = 0.1
         let parentNode = SCNNode()
@@ -135,31 +142,31 @@ extension TrackingPreviewViewController {
     private func updateTargetPosition(left: CGPoint, right: CGPoint) {
     
     }
+    
+    private func update(node: SCNNode, anchor: ARAnchor) {
+        DispatchQueue.main.async {
+            self.nodeFace.transform = node.transform
+            guard let faceAnchor = anchor as? ARFaceAnchor else { return }
+            self.update(faceAnchor: faceAnchor)
+        }
+    }
 }
 
 // MARK: ARSCNViewDelegate
 extension TrackingPreviewViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        nodeFace.transform = node.transform
-        guard let faceAnchor = anchor as? ARFaceAnchor else { return }
-        
-        DispatchQueue.main.async {
-            self.update(faceAnchor: faceAnchor)
-        }
+        update(node: node, anchor: anchor)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        guard let sceneTransformInfo = sceneView.pointOfView?.transform else { return }
-        nodeVirtualPad.transform = sceneTransformInfo
+        DispatchQueue.main.async {
+            guard let sceneTransformInfo = self.sceneView.pointOfView?.transform else { return }
+            self.nodeVirtualPad.transform = sceneTransformInfo
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        nodeFace.transform = node.transform
-        guard let faceAnchor = anchor as? ARFaceAnchor else { return }
-        
-        DispatchQueue.main.async {
-            self.update(faceAnchor: faceAnchor)
-        }
+        update(node: node, anchor: anchor)
     }
 }
 
