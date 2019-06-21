@@ -38,7 +38,6 @@ class TrackingPreviewViewController: ViewController {
         return TrackingService.shared.config
     }
 
-    private let timerInterval: Double = 1.0
     private var dogEyeTimer: Timer?
 
     var virtualScreenNode: SCNNode = {
@@ -178,7 +177,7 @@ extension TrackingPreviewViewController {
     private func configureTimer() {
         configureOpacity(opacity: 1.0)
         dogEyeTimer?.invalidate()
-        dogEyeTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: false) { (t) in
+        dogEyeTimer = Timer.scheduledTimer(withTimeInterval: config.dogEyeDismissDuration, repeats: false) { (t) in
             DispatchQueue.main.async {
                 self.configureOpacity(opacity: 0.0)
             }

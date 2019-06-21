@@ -36,5 +36,7 @@ extension TrackingService {
         var sightConeLength: CGFloat = 0.4
         var blinkOpenThreshold: CGFloat = 0.2
         var blinkCloseThreshold: CGFloat = 0.8
+        
+        var dogEyeDismissDuration: Double = 0.2
     }
 }
