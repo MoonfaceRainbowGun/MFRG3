@@ -81,6 +81,8 @@ class TrackingPreviewViewController: ViewController {
         configuration.isLightEstimationEnabled = true
         
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
+        updateTransform()
     }
 }
 
@@ -176,11 +178,6 @@ extension TrackingPreviewViewController {
             let node = SCNNode()
             node.geometry = geometry
             
-            var transform = SCNMatrix4Identity
-            transform = SCNMatrix4Translate(transform, 0, Float(config.sightConeLength) / 2, 0)
-            transform = SCNMatrix4Rotate(transform, 1.6, 1, 0, 0)
-            node.transform = transform
-            
             if isLeft {
                 nodeEyeBeamLeft = node
             } else {
@@ -197,11 +194,6 @@ extension TrackingPreviewViewController {
             let geometry = SCNSphere(radius: 0.005)
             geometry.firstMaterial?.diffuse.contents = UIColor.red
             target.geometry = geometry
-            
-            var transform = SCNMatrix4Identity
-            transform = SCNMatrix4Translate(transform, 0, 2, 0)
-            transform = SCNMatrix4Rotate(transform, 1.6, 1, 0, 0)
-            target.transform = transform
             
             parentNode.addChildNode(target)
             
