@@ -18,6 +18,8 @@
 		BF040F2322BC92E400E47122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF040F2122BC92E400E47122 /* LaunchScreen.storyboard */; };
 		BF040F2C22BC936300E47122 /* TrackingPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */; };
 		BF040F3022BD244700E47122 /* TrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2F22BD244700E47122 /* TrackingService.swift */; };
+		DF91B7EC22BD4C8F00EE09D6 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = DF91B7EA22BD4C8F00EE09D6 /* spark.png */; };
+		DF91B7ED22BD4C8F00EE09D6 /* beam.scnp in Resources */ = {isa = PBXBuildFile; fileRef = DF91B7EB22BD4C8F00EE09D6 /* beam.scnp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		BF040F2422BC92E400E47122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPreviewViewController.swift; sourceTree = "<group>"; };
 		BF040F2F22BD244700E47122 /* TrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingService.swift; sourceTree = "<group>"; };
+		DF91B7EA22BD4C8F00EE09D6 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		DF91B7EB22BD4C8F00EE09D6 /* beam.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = beam.scnp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,8 @@
 		A03FCE6722BCDE39006A6695 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DF91B7EA22BD4C8F00EE09D6 /* spark.png */,
+				DF91B7EB22BD4C8F00EE09D6 /* beam.scnp */,
 				A03FCE6A22BCDF34006A6695 /* 新闻联播片头曲.jpg */,
 			);
 			path = Resources;
@@ -187,8 +193,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF91B7ED22BD4C8F00EE09D6 /* beam.scnp in Resources */,
 				BF040F2322BC92E400E47122 /* LaunchScreen.storyboard in Resources */,
 				BF040F2022BC92E400E47122 /* Assets.xcassets in Resources */,
+				DF91B7EC22BD4C8F00EE09D6 /* spark.png in Resources */,
 				BF040F1E22BC92E300E47122 /* Main.storyboard in Resources */,
 				A03FCE6B22BCDF34006A6695 /* 新闻联播片头曲.jpg in Resources */,
 			);
@@ -401,13 +409,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y759WLYUGN;
+				DEVELOPMENT_TEAM = 88JY6L5JJ8;
 				INFOPLIST_FILE = Sauron/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.seagroup.Sauron;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.Sauron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -420,13 +429,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y759WLYUGN;
+				DEVELOPMENT_TEAM = 88JY6L5JJ8;
 				INFOPLIST_FILE = Sauron/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.seagroup.Sauron;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.Sauron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

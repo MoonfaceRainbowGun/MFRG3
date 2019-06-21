@@ -38,5 +38,6 @@ extension TrackingService {
         var blinkCloseThreshold: CGFloat = 0.8
         
         var dogEyeDismissDuration: Double = 0.2
+        var aimSize: CGSize = CGSize(width: 30, height: 30)
     }
 }

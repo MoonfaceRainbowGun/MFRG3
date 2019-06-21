@@ -89,8 +89,8 @@ extension TrackingPreviewViewController {
         nodeRoot.addChildNode(nodeFocus)
         
         view.addSubview(sceneView)
-        focusView.frame.size = CGSize(width: 30, height: 30)
-        focusView.backgroundColor = .blue
+        focusView.frame.size = config.aimSize
+        focusView.backgroundColor = .init(white: 0.8, alpha: 0.7)
         
         imageView.image = UIImage(named: "")
         imageView.contentMode = .scaleAspectFill
@@ -195,12 +195,21 @@ extension TrackingPreviewViewController {
         
         do {
             let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: config.sightConeLength)
-            
+
             geometry.radialSegmentCount = 10
-            geometry.firstMaterial?.diffuse.contents = UIColor.yellow
-            
+            geometry.firstMaterial?.diffuse.contents = UIColor.yellow.withAlphaComponent(0.7)
             let node = SCNNode()
             node.geometry = geometry
+
+            let beam = SCNParticleSystem(named: "beam.scnp", inDirectory: nil)!
+            beam.emitterShape = geometry
+            
+            let nodeBeam = SCNNode()
+            var transformBeam = SCNMatrix4Identity
+            transformBeam = SCNMatrix4Translate(transformBeam, 0, 0, -20)
+            node.transform = transformBeam
+            nodeBeam.addParticleSystem(beam)
+            node.addChildNode(nodeBeam)
             
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, Float(config.sightConeLength) / 2, 0)
@@ -244,7 +253,7 @@ extension TrackingPreviewViewController {
     private func createFocusPoint() -> SCNNode {
         let node = SCNNode()
         let geometry = SCNSphere(radius: 0.002)
-        geometry.firstMaterial?.diffuse.contents = UIColor.red
+        geometry.firstMaterial?.diffuse.contents = UIColor(white: 0.8, alpha: 0.7)
         node.geometry = geometry
         return node
     }
