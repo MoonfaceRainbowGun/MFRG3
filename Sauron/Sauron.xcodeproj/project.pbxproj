@@ -96,7 +96,6 @@
 				1E8E7798AE91FFEAF426FCBE /* Pods-Sauron.debug.xcconfig */,
 				17C25154E4F33F54B62A6155 /* Pods-Sauron.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
