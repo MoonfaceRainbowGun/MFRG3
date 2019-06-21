@@ -9,13 +9,16 @@
 /* Begin PBXBuildFile section */
 		A03FCEAB22BD46A0006A6695 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */; };
 		A03FCEAD22BD46A0006A6695 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */; };
-		A03FCEAF22BD46A0006A6695 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAE22BD46A0006A6695 /* DocumentViewController.swift */; };
-		A03FCEB122BD46A0006A6695 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEB022BD46A0006A6695 /* Document.swift */; };
 		A03FCEB422BD46A0006A6695 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB222BD46A0006A6695 /* Main.storyboard */; };
 		A03FCEB622BD46A1006A6695 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB522BD46A1006A6695 /* Assets.xcassets */; };
 		A03FCEB922BD46A1006A6695 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB722BD46A1006A6695 /* LaunchScreen.storyboard */; };
-		A03FCEC122BD48AC006A6695 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEC022BD48AC006A6695 /* TestViewController.swift */; };
+		A03FCEC122BD48AC006A6695 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEC022BD48AC006A6695 /* ViewController.swift */; };
 		B81B147FB1FFCCBEC5D3E564 /* Pods_Mordor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBC0776669844DC8042E3BF9 /* Pods_Mordor.framework */; };
+		BF040F3C22BD627200E47122 /* ContentScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F3622BD627200E47122 /* ContentScrollViewController.swift */; };
+		BF040F3D22BD627200E47122 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F3722BD627200E47122 /* ContentView.swift */; };
+		BF040F3E22BD627200E47122 /* TrackingPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F3922BD627200E47122 /* TrackingPreviewViewController.swift */; };
+		BF040F3F22BD627200E47122 /* TrackingControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F3A22BD627200E47122 /* TrackingControlView.swift */; };
+		BF040F4022BD627200E47122 /* TrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F3B22BD627200E47122 /* TrackingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,15 +26,18 @@
 		A03FCEA722BD46A0006A6695 /* Mordor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mordor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
-		A03FCEAE22BD46A0006A6695 /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
-		A03FCEB022BD46A0006A6695 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		A03FCEB322BD46A0006A6695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A03FCEB522BD46A1006A6695 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A03FCEB822BD46A1006A6695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A03FCEBA22BD46A1006A6695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A03FCEC022BD48AC006A6695 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		A03FCEC022BD48AC006A6695 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B0C31D8B60A30EC110F7B6DE /* Pods-Mordor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mordor.release.xcconfig"; path = "Target Support Files/Pods-Mordor/Pods-Mordor.release.xcconfig"; sourceTree = "<group>"; };
 		BBC0776669844DC8042E3BF9 /* Pods_Mordor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mordor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF040F3622BD627200E47122 /* ContentScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentScrollViewController.swift; sourceTree = "<group>"; };
+		BF040F3722BD627200E47122 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BF040F3922BD627200E47122 /* TrackingPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingPreviewViewController.swift; sourceTree = "<group>"; };
+		BF040F3A22BD627200E47122 /* TrackingControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingControlView.swift; sourceTree = "<group>"; };
+		BF040F3B22BD627200E47122 /* TrackingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,17 +90,38 @@
 		A03FCEA922BD46A0006A6695 /* Mordor */ = {
 			isa = PBXGroup;
 			children = (
+				BF040F3522BD627200E47122 /* ContentViewer */,
+				BF040F3822BD627200E47122 /* Eye Tracking */,
 				A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */,
 				A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */,
-				A03FCEAE22BD46A0006A6695 /* DocumentViewController.swift */,
-				A03FCEB022BD46A0006A6695 /* Document.swift */,
 				A03FCEB222BD46A0006A6695 /* Main.storyboard */,
 				A03FCEB522BD46A1006A6695 /* Assets.xcassets */,
 				A03FCEB722BD46A1006A6695 /* LaunchScreen.storyboard */,
 				A03FCEBA22BD46A1006A6695 /* Info.plist */,
-				A03FCEC022BD48AC006A6695 /* TestViewController.swift */,
+				A03FCEC022BD48AC006A6695 /* ViewController.swift */,
 			);
 			path = Mordor;
+			sourceTree = "<group>";
+		};
+		BF040F3522BD627200E47122 /* ContentViewer */ = {
+			isa = PBXGroup;
+			children = (
+				BF040F3622BD627200E47122 /* ContentScrollViewController.swift */,
+				BF040F3722BD627200E47122 /* ContentView.swift */,
+			);
+			name = ContentViewer;
+			path = ../../Sauron/Sauron/ContentViewer;
+			sourceTree = "<group>";
+		};
+		BF040F3822BD627200E47122 /* Eye Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				BF040F3922BD627200E47122 /* TrackingPreviewViewController.swift */,
+				BF040F3A22BD627200E47122 /* TrackingControlView.swift */,
+				BF040F3B22BD627200E47122 /* TrackingService.swift */,
+			);
+			name = "Eye Tracking";
+			path = "../../Sauron/Sauron/Eye Tracking";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,11 +239,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A03FCEC122BD48AC006A6695 /* TestViewController.swift in Sources */,
-				A03FCEB122BD46A0006A6695 /* Document.swift in Sources */,
-				A03FCEAF22BD46A0006A6695 /* DocumentViewController.swift in Sources */,
+				A03FCEC122BD48AC006A6695 /* ViewController.swift in Sources */,
+				BF040F3D22BD627200E47122 /* ContentView.swift in Sources */,
+				BF040F3E22BD627200E47122 /* TrackingPreviewViewController.swift in Sources */,
+				BF040F3F22BD627200E47122 /* TrackingControlView.swift in Sources */,
+				BF040F4022BD627200E47122 /* TrackingService.swift in Sources */,
 				A03FCEAD22BD46A0006A6695 /* DocumentBrowserViewController.swift in Sources */,
 				A03FCEAB22BD46A0006A6695 /* AppDelegate.swift in Sources */,
+				BF040F3C22BD627200E47122 /* ContentScrollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,7 +394,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SWZT2N435K;
+				DEVELOPMENT_TEAM = DJHPY9N63F;
 				INFOPLIST_FILE = Mordor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -383,7 +413,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SWZT2N435K;
+				DEVELOPMENT_TEAM = DJHPY9N63F;
 				INFOPLIST_FILE = Mordor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -12,6 +12,11 @@ import WebKit
 import SnapKit
 
 class ContentScrollViewController: ViewController {
+    
+    private let closeBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    private let closeVibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .light)))
+    private let closeButton = UIButton(type: .system)
+    
     private let previewController = TrackingPreviewViewController()
     private let threshold: CGFloat = 0.2
     private var isScrolling: Bool = false
@@ -24,11 +29,19 @@ class ContentScrollViewController: ViewController {
     private lazy var maxYOffset = self.webView.scrollView.contentSize.height - self.webView.scrollView.frame.height
     private let minYOffset: CGFloat = 0
 
-    var webView: WKWebView!
+    private let url: URL
+    private let webView: WKWebView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+    
+    init(url: URL) {
+        self.url = url
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
         view = webView
     }
@@ -36,18 +49,37 @@ class ContentScrollViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let myURL = URL(string:"http://uygnim.com/xwlb.pdf")
-        let myRequest = URLRequest(url: myURL!)
-        webView.load(myRequest)
+        webView.loadFileURL(url, allowingReadAccessTo: url)
         
         let previewView = previewController.view
         view.addSubview(previewView!)
+        addChild(previewController)
         
         previewView?.snp.remakeConstraints({ make in
             make.center.equalToSuperview()
             make.width.equalToSuperview()
             make.height.equalToSuperview()
         })
+        
+        view.addSubview(closeButton)
+        closeButton.addTarget(self, action: #selector(didTapDimiss), for: .touchUpInside)
+        closeBackgroundView.layer.cornerRadius = 30
+        closeButton.setImage(UIImage(named: "round_cancel_black_48pt"), for: .normal)
+        closeBackgroundView.contentView.addSubview(closeVibrancyView)
+        closeVibrancyView.contentView.addSubview(closeButton)
+        view.addSubview(closeBackgroundView)
+        closeBackgroundView.snp.makeConstraints { (make) in
+            make.top.trailing.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.width.height.equalTo(60)
+        }
+        
+        closeVibrancyView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        closeButton.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
             if !self.isScrolling {
