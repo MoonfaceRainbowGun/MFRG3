@@ -139,29 +139,16 @@ extension TrackingPreviewViewController {
 // MARK: Update
 extension TrackingPreviewViewController {
     private func update(faceAnchor: ARFaceAnchor) {
-        
         nodeEyeLeft.simdTransform = faceAnchor.leftEyeTransform
         nodeEyeRight.simdTransform = faceAnchor.rightEyeTransform
-        let padScreenSize = CGSize(width: 0.1785, height: 0.2476)
-        
-        print()
-        print()
-        print()
         
         let eyeX = (nodeEyeLeft.worldPosition.x + nodeEyeRight.worldPosition.x) / 2
-        print("x", eyeX)
         let eyeY = (nodeEyeLeft.worldPosition.y + nodeEyeRight.worldPosition.y) / 2
-        print("y", eyeY)
         let eyeZ = (nodeEyeLeft.worldPosition.z + nodeEyeRight.worldPosition.z) / 2
-        print("z", eyeZ)
         
         let targetX = (nodeEyeTargetLeft!.worldPosition.x + nodeEyeTargetRight!.worldPosition.x) / 2
-        print("x", targetX)
         let targetY = (nodeEyeTargetLeft!.worldPosition.y + nodeEyeTargetRight!.worldPosition.y) / 2
-        print("y", targetY)
         let targetZ = (nodeEyeTargetLeft!.worldPosition.z + nodeEyeTargetRight!.worldPosition.z) / 2
-        print("z", targetZ)
-        
         
         let cc = Float(-0.1)
         let aa = ((eyeX * targetZ - targetX * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
