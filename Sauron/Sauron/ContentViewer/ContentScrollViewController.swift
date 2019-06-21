@@ -28,7 +28,7 @@ class ContentScrollViewController: ViewController {
     
     
     private let previewController = TrackingPreviewViewController()
-    private let thresholdTop: CGFloat = 0.12
+    private let thresholdTop: CGFloat = 0.2
     private let thresholdBottom: CGFloat = 0.25
     private let magic: CGFloat = 300
     private var isScrolling: Bool = false
