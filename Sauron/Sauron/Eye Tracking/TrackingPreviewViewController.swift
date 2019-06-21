@@ -48,6 +48,7 @@ class TrackingPreviewViewController: ViewController {
             controlView.isHidden = !mode.showNodes
             nodeFace.isHidden = controlView.isHidden
             nodeFocus.isHidden = nodeFace.isHidden
+            focusView.isHidden = mode == .hidden
         }
     }
 
