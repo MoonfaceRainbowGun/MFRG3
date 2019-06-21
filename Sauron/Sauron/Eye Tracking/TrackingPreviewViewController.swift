@@ -15,10 +15,8 @@ class TrackingPreviewViewController: ViewController {
 
     private let sceneView = ARSCNView()
     private lazy var focusView = UIView()
-    private let pitchSlider = UISlider()
-    private let rangeSlider = UISlider()
-    private let rollSlider = UISlider()
     private let imageView = UIImageView()
+    private let controlView = TrackingControlView()
     
     private let nodeVirtualPad = SCNNode()
     private let nodeFace = SCNNode()
@@ -99,53 +97,24 @@ extension TrackingPreviewViewController {
         
         view.addSubview(focusView)
         
-        pitchSlider.minimumValue = config.verticalMin
-        pitchSlider.maximumValue = config.verticalMax
-        pitchSlider.value = config.vertical
-        pitchSlider.addTarget(self, action: #selector(didSlidePitchSlider), for: .valueChanged)
-        view.addSubview(pitchSlider)
-        
-        rangeSlider.minimumValue = config.rangeMin
-        rangeSlider.maximumValue = config.rangeMax
-        rangeSlider.value = config.range
-        rangeSlider.addTarget(self, action: #selector(didSlideRangeSlider), for: .valueChanged)
-        view.addSubview(rangeSlider)
-        
-        rollSlider.minimumValue = config.horizontalMin
-        rollSlider.maximumValue = config.horizontalMax
-        rollSlider.value = config.horizontal
-        rollSlider.addTarget(self, action: #selector(didSliderRollSlider), for: .valueChanged)
-        view.addSubview(rollSlider)
-    }
-    
-    @objc func didSlidePitchSlider() {
-        updateTransform()
-    }
-    
-    @objc
-    func didSlideRangeSlider() {
-        config.range = rangeSlider.value
-    }
-    
-    @objc
-    func didSliderRollSlider() {
-        updateTransform()
+        controlView.delegate = self
+        view.addSubview(controlView)
     }
     
     private func updateTransform() {
         [nodeEyeTargetLeft, nodeEyeTargetRight].forEach { (node) in
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, 2, 0)
-            transform = SCNMatrix4Rotate(transform, pitchSlider.value, 1, 0, 0)
-            transform = SCNMatrix4Rotate(transform, rollSlider.value, 0, 1, 0)
+            transform = SCNMatrix4Rotate(transform, config.vertical, 1, 0, 0)
+            transform = SCNMatrix4Rotate(transform, config.horizontal, 0, 1, 0)
             node?.transform = transform
         }
         
         [nodeEyeBeamLeft, nodeEyeBeamRight].forEach { (node) in
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, Float(config.sightConeLength) / 2, 0)
-            transform = SCNMatrix4Rotate(transform, pitchSlider.value, 1, 0, 0)
-            transform = SCNMatrix4Rotate(transform, rollSlider.value, 0, 1, 0)
+            transform = SCNMatrix4Rotate(transform, config.vertical, 1, 0, 0)
+            transform = SCNMatrix4Rotate(transform, config.horizontal, 0, 1, 0)
             node?.transform = transform
         }
     }
@@ -155,22 +124,12 @@ extension TrackingPreviewViewController {
             make.edges.equalToSuperview()
         }
         
+        controlView.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalToSuperview().inset(20)
+        }
+        
         imageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
-        }
-        
-        pitchSlider.snp.makeConstraints { (make) in
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
-        }
-        
-        rangeSlider.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(pitchSlider)
-            make.bottom.equalTo(pitchSlider.snp.top).offset(-20)
-        }
-        
-        rollSlider.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(rangeSlider)
-            make.bottom.equalTo(rangeSlider.snp.top).offset(-20)
         }
     }
     
@@ -354,4 +313,10 @@ extension TrackingPreviewViewController: ARSCNViewDelegate {
 // MARK: ARSessionDelegate
 extension TrackingPreviewViewController: ARSessionDelegate {
     
+}
+
+extension TrackingPreviewViewController: TrackingControlDelegate {
+    func didUpdate() {
+        updateTransform()
+    }
 }

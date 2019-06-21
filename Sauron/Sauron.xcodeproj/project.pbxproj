@@ -18,6 +18,7 @@
 		BF040F2322BC92E400E47122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF040F2122BC92E400E47122 /* LaunchScreen.storyboard */; };
 		BF040F2C22BC936300E47122 /* TrackingPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */; };
 		BF040F3022BD244700E47122 /* TrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2F22BD244700E47122 /* TrackingService.swift */; };
+		BF040F3422BD325D00E47122 /* TrackingControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F3322BD325D00E47122 /* TrackingControlView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		BF040F2422BC92E400E47122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPreviewViewController.swift; sourceTree = "<group>"; };
 		BF040F2F22BD244700E47122 /* TrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingService.swift; sourceTree = "<group>"; };
+		BF040F3322BD325D00E47122 /* TrackingControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingControlView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */,
 				BF040F2F22BD244700E47122 /* TrackingService.swift */,
+				BF040F3322BD325D00E47122 /* TrackingControlView.swift */,
 			);
 			path = "Eye Tracking";
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				BF040F1B22BC92E300E47122 /* ViewController.swift in Sources */,
 				A03FCE6E22BCE03A006A6695 /* ContentView.swift in Sources */,
 				BF040F1922BC92E300E47122 /* AppDelegate.swift in Sources */,
+				BF040F3422BD325D00E47122 /* TrackingControlView.swift in Sources */,
 				BF040F2C22BC936300E47122 /* TrackingPreviewViewController.swift in Sources */,
 				BF040F3022BD244700E47122 /* TrackingService.swift in Sources */,
 				A03FCE6622BCDDC6006A6695 /* ContentScrollViewController.swift in Sources */,
@@ -401,7 +405,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y759WLYUGN;
+				DEVELOPMENT_TEAM = DJHPY9N63F;
 				INFOPLIST_FILE = Sauron/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,7 +424,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y759WLYUGN;
+				DEVELOPMENT_TEAM = DJHPY9N63F;
 				INFOPLIST_FILE = Sauron/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
