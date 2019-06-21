@@ -16,7 +16,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         delegate = self
         
-        allowsDocumentCreation = true
+        allowsDocumentCreation = false
         allowsPickingMultipleItems = false
         
         // Update the style of the UIDocumentBrowserViewController
@@ -32,32 +32,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     // MARK: UIDocumentBrowserViewControllerDelegate
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
-        
-        
-        let doc = MusicDocument()
-        let url = doc.fileURL
-        
-        doc.save(to: url, for: .forCreating) { (saveSuccess) in
-            
-            // Make sure the document saved successfully.
-            guard saveSuccess else {
-                // Cancel document creation.
-                importHandler(nil, .none)
-                return
-            }
-            
-            // Close the document.
-            doc.close(completionHandler: { (closeSuccess) in
-                // Make sure the document closed successfully.
-                guard closeSuccess else {
-                    // Cancel document creation.
-                    importHandler(nil, .none)
-                    return
-                }
-                
-                // Pass the document's temporary URL to the import handler.
-                importHandler(url, .move)
-            }) }
+        importHandler(nil, .none)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
