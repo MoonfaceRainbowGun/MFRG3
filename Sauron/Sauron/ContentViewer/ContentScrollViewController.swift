@@ -42,7 +42,7 @@ class ContentScrollViewController: ViewController {
         let previewView = previewController.view
         view.addSubview(previewView!)
         
-        previewView?.alpha = 0.4
+//        previewView?.alpha = 0.4
         previewView?.snp.remakeConstraints({ make in
             make.center.equalToSuperview()
             make.width.equalToSuperview()

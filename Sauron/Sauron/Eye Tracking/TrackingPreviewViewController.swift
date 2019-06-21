@@ -37,6 +37,15 @@ class TrackingPreviewViewController: ViewController {
     }
 
     private var dogEyeTimer: Timer?
+    private var mode: Mode = .setting {
+        didSet {
+            view.isUserInteractionEnabled = mode.viewInteractionEnabled
+            sceneView.alpha = mode.viewAlpha
+            controlView.isHidden = !mode.showNodes
+            nodeFace.isHidden = controlView.isHidden
+            nodeFocus.isHidden = nodeFace.isHidden
+        }
+    }
 
     var virtualScreenNode: SCNNode = {
         let screenGeometry = SCNPlane(width: 1, height: 1)
@@ -55,8 +64,10 @@ class TrackingPreviewViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.configureViews()
-        self.configureConstraints()
+        configureViews()
+        configureConstraints()
+        
+        mode = .preview
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -326,5 +337,32 @@ extension TrackingPreviewViewController: ARSessionDelegate {
 extension TrackingPreviewViewController: TrackingControlDelegate {
     func didUpdate() {
         updateTransform()
+    }
+}
+
+extension TrackingPreviewViewController {
+    enum Mode {
+        case preview
+        case hidden
+        case setting
+        
+        var viewInteractionEnabled: Bool {
+            return self == .setting
+        }
+        
+        var viewAlpha: CGFloat {
+            switch self {
+            case .setting:
+                return 1
+            case .preview:
+                return 0.2
+            case .hidden:
+                return 0
+            }
+        }
+        
+        var showNodes: Bool {
+            return self == .setting
+        }
     }
 }
