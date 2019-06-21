@@ -18,6 +18,7 @@ class TrackingPreviewViewController: ViewController {
     private let pitchSlider = UISlider()
     private let rangeSlider = UISlider()
     private let rollSlider = UISlider()
+    private let imageView = UIImageView()
     
     private let nodeVirtualPad = SCNNode()
     private let nodeFace = SCNNode()
@@ -90,6 +91,12 @@ extension TrackingPreviewViewController {
         view.addSubview(sceneView)
         focusView.frame.size = CGSize(width: 30, height: 30)
         focusView.backgroundColor = .blue
+        
+        imageView.image = UIImage(named: "")
+        imageView.contentMode = .scaleAspectFill
+        imageView.alpha = 0.8
+        view.addSubview(imageView)
+        
         view.addSubview(focusView)
         
         pitchSlider.minimumValue = .pi / 2 - 0.5
@@ -145,6 +152,10 @@ extension TrackingPreviewViewController {
     
     private func configureConstraints() {
         sceneView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        imageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
         
