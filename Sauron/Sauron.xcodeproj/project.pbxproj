@@ -17,6 +17,7 @@
 		BF040F2022BC92E400E47122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF040F1F22BC92E400E47122 /* Assets.xcassets */; };
 		BF040F2322BC92E400E47122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF040F2122BC92E400E47122 /* LaunchScreen.storyboard */; };
 		BF040F2C22BC936300E47122 /* TrackingPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */; };
+		BF040F3022BD244700E47122 /* TrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040F2F22BD244700E47122 /* TrackingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		BF040F2222BC92E400E47122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF040F2422BC92E400E47122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPreviewViewController.swift; sourceTree = "<group>"; };
+		BF040F2F22BD244700E47122 /* TrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				BF040F2B22BC936300E47122 /* TrackingPreviewViewController.swift */,
+				BF040F2F22BD244700E47122 /* TrackingService.swift */,
 			);
 			path = "Eye Tracking";
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				A03FCE6E22BCE03A006A6695 /* ContentView.swift in Sources */,
 				BF040F1922BC92E300E47122 /* AppDelegate.swift in Sources */,
 				BF040F2C22BC936300E47122 /* TrackingPreviewViewController.swift in Sources */,
+				BF040F3022BD244700E47122 /* TrackingService.swift in Sources */,
 				A03FCE6622BCDDC6006A6695 /* ContentScrollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -30,15 +30,13 @@ class TrackingPreviewViewController: ViewController {
     private var nodeEyeBeamRight: SCNNode?
     private lazy var nodeFocus = createFocusPoint()
     
-    private let height: CGFloat = 0.4
-    private var padDistance: Float = 0.08
-    
     private var pastPositions: [simd_float3] = []
-    
-    private var blinkOpenThreshold: CGFloat = 0.2
-    private var blinkCloseThreshold: CGFloat = 0.8
     private var blinkLeftInProgress = false
     private var blinkRightInProgress = false
+    
+    private var config: TrackingService.Config {
+        return TrackingService.shared.config
+    }
 
     var virtualScreenNode: SCNNode = {
         let screenGeometry = SCNPlane(width: 1, height: 1)
@@ -99,21 +97,21 @@ extension TrackingPreviewViewController {
         
         view.addSubview(focusView)
         
-        pitchSlider.minimumValue = .pi / 2 - 0.5
-        pitchSlider.maximumValue = .pi / 2 + 0.5
-        pitchSlider.value = 1.6
+        pitchSlider.minimumValue = config.verticalMin
+        pitchSlider.maximumValue = config.verticalMax
+        pitchSlider.value = config.vertical
         pitchSlider.addTarget(self, action: #selector(didSlidePitchSlider), for: .valueChanged)
         view.addSubview(pitchSlider)
         
-        rangeSlider.minimumValue = 0.03
-        rangeSlider.maximumValue = 0.13
-        rangeSlider.value = padDistance
+        rangeSlider.minimumValue = config.rangeMin
+        rangeSlider.maximumValue = config.rangeMax
+        rangeSlider.value = config.range
         rangeSlider.addTarget(self, action: #selector(didSlideRangeSlider), for: .valueChanged)
         view.addSubview(rangeSlider)
         
-        rollSlider.minimumValue = -0.5
-        rollSlider.maximumValue = 0.5
-        rollSlider.value = 0
+        rollSlider.minimumValue = config.horizontalMin
+        rollSlider.maximumValue = config.horizontalMax
+        rollSlider.value = config.horizontal
         rollSlider.addTarget(self, action: #selector(didSliderRollSlider), for: .valueChanged)
         view.addSubview(rollSlider)
     }
@@ -124,7 +122,7 @@ extension TrackingPreviewViewController {
     
     @objc
     func didSlideRangeSlider() {
-        padDistance = rangeSlider.value
+        config.range = rangeSlider.value
     }
     
     @objc
@@ -143,7 +141,7 @@ extension TrackingPreviewViewController {
         
         [nodeEyeBeamLeft, nodeEyeBeamRight].forEach { (node) in
             var transform = SCNMatrix4Identity
-            transform = SCNMatrix4Translate(transform, 0, Float(height) / 2, 0)
+            transform = SCNMatrix4Translate(transform, 0, Float(config.sightConeLength) / 2, 0)
             transform = SCNMatrix4Rotate(transform, pitchSlider.value, 1, 0, 0)
             transform = SCNMatrix4Rotate(transform, rollSlider.value, 0, 1, 0)
             node?.transform = transform
@@ -178,7 +176,7 @@ extension TrackingPreviewViewController {
         let parentNode = SCNNode()
         
         do {
-            let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: height)
+            let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: config.sightConeLength)
             
             geometry.radialSegmentCount = 10
             geometry.firstMaterial?.diffuse.contents = UIColor.yellow
@@ -187,7 +185,7 @@ extension TrackingPreviewViewController {
             node.geometry = geometry
             
             var transform = SCNMatrix4Identity
-            transform = SCNMatrix4Translate(transform, 0, Float(height) / 2, 0)
+            transform = SCNMatrix4Translate(transform, 0, Float(config.sightConeLength) / 2, 0)
             transform = SCNMatrix4Rotate(transform, 1.6, 1, 0, 0)
             node.transform = transform
             
@@ -238,18 +236,18 @@ extension TrackingPreviewViewController {
 extension TrackingPreviewViewController {
     private func update(faceAnchor: ARFaceAnchor) {
         if let value = faceAnchor.blendShapes[.eyeBlinkLeft]?.floatValue {
-            if !blinkLeftInProgress && CGFloat(value) > blinkCloseThreshold {
+            if !blinkLeftInProgress && CGFloat(value) > config.blinkCloseThreshold {
                 blinkLeftInProgress = true
-            } else if blinkLeftInProgress && CGFloat(value) < blinkOpenThreshold {
+            } else if blinkLeftInProgress && CGFloat(value) < config.blinkOpenThreshold {
                 blinkLeftInProgress = false
                 print(" Blink my right eye!")
             }
         }
         
         if let value = faceAnchor.blendShapes[.eyeBlinkRight]?.floatValue {
-            if !blinkRightInProgress && CGFloat(value) > blinkCloseThreshold {
+            if !blinkRightInProgress && CGFloat(value) > config.blinkCloseThreshold {
                 blinkRightInProgress = true
-            } else if blinkRightInProgress && CGFloat(value) < blinkOpenThreshold {
+            } else if blinkRightInProgress && CGFloat(value) < config.blinkOpenThreshold {
                 blinkRightInProgress = false
                 print(" Blink my left eye!")
             }
@@ -266,7 +264,7 @@ extension TrackingPreviewViewController {
         let targetY = (nodeEyeTargetLeft!.worldPosition.y + nodeEyeTargetRight!.worldPosition.y) / 2
         let targetZ = (nodeEyeTargetLeft!.worldPosition.z + nodeEyeTargetRight!.worldPosition.z) / 2
         
-        let cc = Float(-padDistance)
+        let cc = Float(-config.range)
         let aa = ((eyeX * targetZ - targetX * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
         let bb = ((eyeY * targetZ - targetY * eyeZ + (targetY - eyeY) * cc) / (targetZ - eyeZ))
         
