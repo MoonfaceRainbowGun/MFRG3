@@ -8,33 +8,33 @@
 
 import Foundation
 import UIKit
+import WebKit
 import SnapKit
 
 class ContentScrollViewController: ViewController {
-    private var numberOfViews = 8
-    private var contentViews = [UIView]()
-    private let scrollView = UIScrollView()
-    
     private let button = UIButton()
 
+    var webView: WKWebView!
+    
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scrollView.isPagingEnabled = false
-        scrollView.delegate = self
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.contentInsetAdjustmentBehavior = .never
-        scrollView.decelerationRate = .fast
-        scrollView.scrollsToTop = false
-        view.addSubview(scrollView)
-        
+        button.backgroundColor = UIColor.blue
         button.setTitle("Scroll!", for: .normal)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         view.addSubview(button)
         
         self.configureConstraints()
-        self.configureViews()
+        
+        let myURL = URL(string:"https://www.shopee.sg")
+        let myRequest = URLRequest(url: myURL!)
+        webView.load(myRequest)
     }
     
     @objc private func didTapButton() {
@@ -42,52 +42,26 @@ class ContentScrollViewController: ViewController {
     }
     
     private func configureConstraints() {
-        scrollView.snp.remakeConstraints({ make in
-            make.edges.equalToSuperview()
-        })
-        
         button.snp.remakeConstraints({ make in
-            make.top.equalToSuperview().offset(20)
-            make.centerX.equalToSuperview()
+            make.center.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(50)
         })
     }
 
     private func configureViews() {
-        while contentViews.count < numberOfViews {
-            contentViews.append(ContentView(counter: contentViews.count))
-        }
         
-        for (index, view) in contentViews.enumerated() {
-            scrollView.addSubview(view)
-            view.frame = CGRect(x: 0, y: CGFloat(index) * viewHeight, width: viewWidth, height: viewHeight)
-        }
-        
-        scrollView.contentSize = CGSize(width: viewWidth, height: CGFloat(contentViews.count) * viewHeight)
     }
     
     private func scroll(in seconds: Double) {
         UIView.animate(withDuration: seconds) {
-            let contentOffset = self.scrollView.contentOffset
-            let newOffset = CGPoint(x: contentOffset.x, y: contentOffset.y + self.viewHeight / 3.0)
-            self.scrollView.contentOffset = newOffset
+            let contentOffset = self.webView.scrollView.contentOffset
+            let newOffset = CGPoint(x: contentOffset.x, y: contentOffset.y + UIScreen.main.bounds.size.height / 3.0)
+            self.webView.scrollView.contentOffset = newOffset
         }
-    }
-    
-    private var viewSize: CGSize {
-        return UIScreen.main.bounds.size
-    }
-    
-    private var viewWidth: CGFloat {
-        return viewSize.width
-    }
-    
-    private var viewHeight: CGFloat {
-        return viewSize.height
     }
 }
 
-extension ContentScrollViewController: UIScrollViewDelegate {
+extension ContentScrollViewController: WKUIDelegate {
     
 }
