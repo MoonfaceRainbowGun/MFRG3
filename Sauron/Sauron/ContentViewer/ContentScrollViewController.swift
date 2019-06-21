@@ -28,14 +28,14 @@ class ContentScrollViewController: ViewController {
     
     
     private let previewController = TrackingPreviewViewController()
-    private let threshold: CGFloat = 0.35
+    private let threshold: CGFloat = 0.3
     private let magic: CGFloat = 300
     private var isScrolling: Bool = false
     private let scrollingDuration: Double = 1
     
     private var upCounter = 0
     private var downCounter = 0
-    private let counterThreashold = 3
+    private let counterThreashold = 5
     
     private lazy var maxYOffset = self.webView.scrollView.contentSize.height - self.webView.scrollView.frame.height
     private let minYOffset: CGFloat = 0
@@ -145,6 +145,7 @@ class ContentScrollViewController: ViewController {
                     self.upCounter = 0
                     if self.downCounter > self.counterThreashold {
                         self.scroll(in: self.scrollingDuration, isScrollingDown: true)
+                        self.downCounter = 0
                     }
                 } else if topRect.contains(self.previewController.focusCoordinate) {
                     self.downCounter = 0

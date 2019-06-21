@@ -108,13 +108,15 @@ extension TrackingPreviewViewController {
         nodeRoot.addChildNode(nodeFocus)
         
         view.addSubview(sceneView)
-        focusView.backgroundColor = .init(white: 0.8, alpha: 0.7)
         
         imageView.image = UIImage(named: "")
         imageView.contentMode = .scaleAspectFill
         imageView.alpha = 0.8
         view.addSubview(imageView)
         
+        focusView.backgroundColor = UIColor(red: 225/255.0, green: 110/255.0, blue: 56/255.0, alpha: 0.5)
+        focusView.layer.cornerRadius = 15
+        focusView.frame.size = CGSize(width: 30, height: 30)
         view.addSubview(focusView)
         
         controlView.delegate = self
