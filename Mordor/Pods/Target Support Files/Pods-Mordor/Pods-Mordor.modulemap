@@ -1,0 +1,6 @@
+framework module Pods_Mordor {
+  umbrella header "Pods-Mordor-umbrella.h"
+
+  export *
+  module * { export * }
+}

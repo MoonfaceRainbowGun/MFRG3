@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,10 +15,11 @@
 		A03FCEB622BD46A1006A6695 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB522BD46A1006A6695 /* Assets.xcassets */; };
 		A03FCEB922BD46A1006A6695 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB722BD46A1006A6695 /* LaunchScreen.storyboard */; };
 		A03FCEC122BD48AC006A6695 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEC022BD48AC006A6695 /* TestViewController.swift */; };
-		A03FCEC522BD5385006A6695 /* xwlb.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEC422BD5385006A6695 /* xwlb.pdf */; };
+		B81B147FB1FFCCBEC5D3E564 /* Pods_Mordor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBC0776669844DC8042E3BF9 /* Pods_Mordor.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		860AE0E7AEB45E9BF820901F /* Pods-Mordor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mordor.debug.xcconfig"; path = "Target Support Files/Pods-Mordor/Pods-Mordor.debug.xcconfig"; sourceTree = "<group>"; };
 		A03FCEA722BD46A0006A6695 /* Mordor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mordor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -29,7 +30,8 @@
 		A03FCEB822BD46A1006A6695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A03FCEBA22BD46A1006A6695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A03FCEC022BD48AC006A6695 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		A03FCEC422BD5385006A6695 /* xwlb.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = xwlb.pdf; sourceTree = "<group>"; };
+		B0C31D8B60A30EC110F7B6DE /* Pods-Mordor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mordor.release.xcconfig"; path = "Target Support Files/Pods-Mordor/Pods-Mordor.release.xcconfig"; sourceTree = "<group>"; };
+		BBC0776669844DC8042E3BF9 /* Pods_Mordor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mordor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +39,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B81B147FB1FFCCBEC5D3E564 /* Pods_Mordor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01F043DE484AB9281218CF56 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				860AE0E7AEB45E9BF820901F /* Pods-Mordor.debug.xcconfig */,
+				B0C31D8B60A30EC110F7B6DE /* Pods-Mordor.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		85D8F5E2EA24F7EB95D4BA97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBC0776669844DC8042E3BF9 /* Pods_Mordor.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A03FCE9E22BD46A0006A6695 = {
 			isa = PBXGroup;
 			children = (
 				A03FCEA922BD46A0006A6695 /* Mordor */,
 				A03FCEA822BD46A0006A6695 /* Products */,
+				01F043DE484AB9281218CF56 /* Pods */,
+				85D8F5E2EA24F7EB95D4BA97 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,7 +84,6 @@
 		A03FCEA922BD46A0006A6695 /* Mordor */ = {
 			isa = PBXGroup;
 			children = (
-				A03FCEC422BD5385006A6695 /* xwlb.pdf */,
 				A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */,
 				A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */,
 				A03FCEAE22BD46A0006A6695 /* DocumentViewController.swift */,
@@ -83,9 +104,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A03FCEBD22BD46A1006A6695 /* Build configuration list for PBXNativeTarget "Mordor" */;
 			buildPhases = (
+				C624412881FEE3400778E216 /* [CP] Check Pods Manifest.lock */,
 				A03FCEA322BD46A0006A6695 /* Sources */,
 				A03FCEA422BD46A0006A6695 /* Frameworks */,
 				A03FCEA522BD46A0006A6695 /* Resources */,
+				532259F9FDDAA12ABE3C3798 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -135,13 +158,54 @@
 			buildActionMask = 2147483647;
 			files = (
 				A03FCEB922BD46A1006A6695 /* LaunchScreen.storyboard in Resources */,
-				A03FCEC522BD5385006A6695 /* xwlb.pdf in Resources */,
 				A03FCEB622BD46A1006A6695 /* Assets.xcassets in Resources */,
 				A03FCEB422BD46A0006A6695 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		532259F9FDDAA12ABE3C3798 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mordor/Pods-Mordor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mordor/Pods-Mordor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mordor/Pods-Mordor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C624412881FEE3400778E216 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mordor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A03FCEA322BD46A0006A6695 /* Sources */ = {
@@ -296,6 +360,7 @@
 		};
 		A03FCEBE22BD46A1006A6695 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 860AE0E7AEB45E9BF820901F /* Pods-Mordor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -314,6 +379,7 @@
 		};
 		A03FCEBF22BD46A1006A6695 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0C31D8B60A30EC110F7B6DE /* Pods-Mordor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
