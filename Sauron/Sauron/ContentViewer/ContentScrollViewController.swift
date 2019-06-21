@@ -15,6 +15,14 @@ class ContentScrollViewController: ViewController {
     private let previewController = TrackingPreviewViewController()
     private let threshold: CGFloat = 0.2
     private var isScrolling: Bool = false
+    private let scrollingDuration: Double = 1
+    
+    private var upCounter = 0
+    private var downCounter = 0
+    private let counterThreashold = 5
+    
+    private lazy var maxYOffset = self.webView.scrollView.contentSize.height - self.webView.scrollView.frame.height
+    private let minYOffset: CGFloat = 0
 
     var webView: WKWebView!
     
@@ -46,12 +54,23 @@ class ContentScrollViewController: ViewController {
                 let w = self.view.frame.width
                 let h = self.view.frame.height
                 let bottomRect = CGRect(x: 0, y: h * (1 - self.threshold), width: w, height: h * self.threshold)
-                let topRect = CGRect(x: 0, y: h * self.threshold, width: w, height: h * self.threshold)
+                let topRect = CGRect(x: 0, y: 0, width: w, height: h * self.threshold)
 
                 if bottomRect.contains(self.previewController.focusCoordinate) {
-                    self.scroll(in: 1, isScrollingDown: true)
+                    self.downCounter += 1
+                    self.upCounter = 0
+                    if self.downCounter > self.counterThreashold {
+                        self.scroll(in: self.scrollingDuration, isScrollingDown: true)
+                    }
                 } else if topRect.contains(self.previewController.focusCoordinate) {
-                    self.scroll(in: 1, isScrollingDown: false)
+                    self.downCounter = 0
+                    self.upCounter += 1
+                    if self.upCounter > self.counterThreashold {
+                        self.scroll(in: self.scrollingDuration, isScrollingDown: false)
+                    }
+                } else {
+                    self.downCounter = 0
+                    self.upCounter = 0
                 }
             }
         }
@@ -62,19 +81,31 @@ class ContentScrollViewController: ViewController {
     }
     
     private func scroll(in seconds: Double, isScrollingDown: Bool) {
-        self.isScrolling = true
-        UIView.animate(withDuration: seconds) {
-            let contentOffset = self.webView.scrollView.contentOffset
-            var yOffset: CGFloat
-            if isScrollingDown {
-                yOffset = min(self.webView.scrollView.contentSize.height, contentOffset.y + UIScreen.main.bounds.size.height / 3.0)
-            } else {
-                yOffset = max(0, contentOffset.y - UIScreen.main.bounds.size.height / 3.0)
+        let contentOffset = self.webView.scrollView.contentOffset
+        var newYOffset: CGFloat = 0.0
+
+        if isScrollingDown {
+            if contentOffset.y < self.maxYOffset {
+                self.isScrolling = true
+                newYOffset = min(self.maxYOffset, contentOffset.y + UIScreen.main.bounds.size.height / 3.0)
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.isScrolling = false
+                }
             }
-            self.webView.scrollView.contentOffset = CGPoint(x: contentOffset.x, y: yOffset)
+        } else {
+            if contentOffset.y >= self.minYOffset {
+                self.isScrolling = true
+                newYOffset = max(self.minYOffset, contentOffset.y - UIScreen.main.bounds.size.height / 3.0)
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.isScrolling = false
+                }
+            }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            self.isScrolling = false
+        
+        if self.isScrolling {
+            UIView.animate(withDuration: seconds) {
+                self.webView.scrollView.contentOffset = CGPoint(x: contentOffset.x, y: newYOffset)
+            }
         }
     }
 }
