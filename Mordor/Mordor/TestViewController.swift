@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TestViewController.swift
 //  Mordor
 //
 //  Created by Huang Bohan on 22/6/19.
@@ -8,13 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        view.backgroundColor = UIColor.blue
     }
-
-
 }
-

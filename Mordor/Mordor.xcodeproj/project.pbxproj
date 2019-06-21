@@ -7,25 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A03FCE8D22BD444E006A6695 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCE8C22BD444E006A6695 /* AppDelegate.swift */; };
-		A03FCE8F22BD444E006A6695 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCE8E22BD444E006A6695 /* ViewController.swift */; };
-		A03FCE9222BD444E006A6695 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCE9022BD444E006A6695 /* Main.storyboard */; };
-		A03FCE9422BD4450006A6695 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A03FCE9322BD4450006A6695 /* Assets.xcassets */; };
-		A03FCE9722BD4450006A6695 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCE9522BD4450006A6695 /* LaunchScreen.storyboard */; };
+		A03FCEAB22BD46A0006A6695 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */; };
+		A03FCEAD22BD46A0006A6695 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */; };
+		A03FCEAF22BD46A0006A6695 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEAE22BD46A0006A6695 /* DocumentViewController.swift */; };
+		A03FCEB122BD46A0006A6695 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEB022BD46A0006A6695 /* Document.swift */; };
+		A03FCEB422BD46A0006A6695 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB222BD46A0006A6695 /* Main.storyboard */; };
+		A03FCEB622BD46A1006A6695 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB522BD46A1006A6695 /* Assets.xcassets */; };
+		A03FCEB922BD46A1006A6695 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEB722BD46A1006A6695 /* LaunchScreen.storyboard */; };
+		A03FCEC122BD48AC006A6695 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEC022BD48AC006A6695 /* TestViewController.swift */; };
+		A03FCEC522BD5385006A6695 /* xwlb.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A03FCEC422BD5385006A6695 /* xwlb.pdf */; };
+		A03FCEC722BD5863006A6695 /* MusicDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03FCEC622BD5863006A6695 /* MusicDocument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A03FCE8922BD444E006A6695 /* Mordor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mordor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A03FCE8C22BD444E006A6695 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A03FCE8E22BD444E006A6695 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A03FCE9122BD444E006A6695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A03FCE9322BD4450006A6695 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A03FCE9622BD4450006A6695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A03FCE9822BD4450006A6695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A03FCEA722BD46A0006A6695 /* Mordor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mordor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
+		A03FCEAE22BD46A0006A6695 /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
+		A03FCEB022BD46A0006A6695 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		A03FCEB322BD46A0006A6695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A03FCEB522BD46A1006A6695 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A03FCEB822BD46A1006A6695 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A03FCEBA22BD46A1006A6695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A03FCEC022BD48AC006A6695 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		A03FCEC422BD5385006A6695 /* xwlb.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = xwlb.pdf; sourceTree = "<group>"; };
+		A03FCEC622BD5863006A6695 /* MusicDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A03FCE8622BD444E006A6695 /* Frameworks */ = {
+		A03FCEA422BD46A0006A6695 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,31 +45,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A03FCE8022BD444E006A6695 = {
+		A03FCE9E22BD46A0006A6695 = {
 			isa = PBXGroup;
 			children = (
-				A03FCE8B22BD444E006A6695 /* Mordor */,
-				A03FCE8A22BD444E006A6695 /* Products */,
+				A03FCEA922BD46A0006A6695 /* Mordor */,
+				A03FCEA822BD46A0006A6695 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A03FCE8A22BD444E006A6695 /* Products */ = {
+		A03FCEA822BD46A0006A6695 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A03FCE8922BD444E006A6695 /* Mordor.app */,
+				A03FCEA722BD46A0006A6695 /* Mordor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A03FCE8B22BD444E006A6695 /* Mordor */ = {
+		A03FCEA922BD46A0006A6695 /* Mordor */ = {
 			isa = PBXGroup;
 			children = (
-				A03FCE8C22BD444E006A6695 /* AppDelegate.swift */,
-				A03FCE8E22BD444E006A6695 /* ViewController.swift */,
-				A03FCE9022BD444E006A6695 /* Main.storyboard */,
-				A03FCE9322BD4450006A6695 /* Assets.xcassets */,
-				A03FCE9522BD4450006A6695 /* LaunchScreen.storyboard */,
-				A03FCE9822BD4450006A6695 /* Info.plist */,
+				A03FCEC422BD5385006A6695 /* xwlb.pdf */,
+				A03FCEAA22BD46A0006A6695 /* AppDelegate.swift */,
+				A03FCEAC22BD46A0006A6695 /* DocumentBrowserViewController.swift */,
+				A03FCEAE22BD46A0006A6695 /* DocumentViewController.swift */,
+				A03FCEB022BD46A0006A6695 /* Document.swift */,
+				A03FCEB222BD46A0006A6695 /* Main.storyboard */,
+				A03FCEB522BD46A1006A6695 /* Assets.xcassets */,
+				A03FCEB722BD46A1006A6695 /* LaunchScreen.storyboard */,
+				A03FCEBA22BD46A1006A6695 /* Info.plist */,
+				A03FCEC022BD48AC006A6695 /* TestViewController.swift */,
+				A03FCEC622BD5863006A6695 /* MusicDocument.swift */,
 			);
 			path = Mordor;
 			sourceTree = "<group>";
@@ -67,13 +82,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A03FCE8822BD444E006A6695 /* Mordor */ = {
+		A03FCEA622BD46A0006A6695 /* Mordor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A03FCE9B22BD4450006A6695 /* Build configuration list for PBXNativeTarget "Mordor" */;
+			buildConfigurationList = A03FCEBD22BD46A1006A6695 /* Build configuration list for PBXNativeTarget "Mordor" */;
 			buildPhases = (
-				A03FCE8522BD444E006A6695 /* Sources */,
-				A03FCE8622BD444E006A6695 /* Frameworks */,
-				A03FCE8722BD444E006A6695 /* Resources */,
+				A03FCEA322BD46A0006A6695 /* Sources */,
+				A03FCEA422BD46A0006A6695 /* Frameworks */,
+				A03FCEA522BD46A0006A6695 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -81,25 +96,25 @@
 			);
 			name = Mordor;
 			productName = Mordor;
-			productReference = A03FCE8922BD444E006A6695 /* Mordor.app */;
+			productReference = A03FCEA722BD46A0006A6695 /* Mordor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A03FCE8122BD444E006A6695 /* Project object */ = {
+		A03FCE9F22BD46A0006A6695 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Huang Bohan";
 				TargetAttributes = {
-					A03FCE8822BD444E006A6695 = {
+					A03FCEA622BD46A0006A6695 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
 			};
-			buildConfigurationList = A03FCE8422BD444E006A6695 /* Build configuration list for PBXProject "Mordor" */;
+			buildConfigurationList = A03FCEA222BD46A0006A6695 /* Build configuration list for PBXProject "Mordor" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -107,54 +122,59 @@
 				en,
 				Base,
 			);
-			mainGroup = A03FCE8022BD444E006A6695;
-			productRefGroup = A03FCE8A22BD444E006A6695 /* Products */;
+			mainGroup = A03FCE9E22BD46A0006A6695;
+			productRefGroup = A03FCEA822BD46A0006A6695 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A03FCE8822BD444E006A6695 /* Mordor */,
+				A03FCEA622BD46A0006A6695 /* Mordor */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A03FCE8722BD444E006A6695 /* Resources */ = {
+		A03FCEA522BD46A0006A6695 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A03FCE9722BD4450006A6695 /* LaunchScreen.storyboard in Resources */,
-				A03FCE9422BD4450006A6695 /* Assets.xcassets in Resources */,
-				A03FCE9222BD444E006A6695 /* Main.storyboard in Resources */,
+				A03FCEB922BD46A1006A6695 /* LaunchScreen.storyboard in Resources */,
+				A03FCEC522BD5385006A6695 /* xwlb.pdf in Resources */,
+				A03FCEB622BD46A1006A6695 /* Assets.xcassets in Resources */,
+				A03FCEB422BD46A0006A6695 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A03FCE8522BD444E006A6695 /* Sources */ = {
+		A03FCEA322BD46A0006A6695 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A03FCE8F22BD444E006A6695 /* ViewController.swift in Sources */,
-				A03FCE8D22BD444E006A6695 /* AppDelegate.swift in Sources */,
+				A03FCEC722BD5863006A6695 /* MusicDocument.swift in Sources */,
+				A03FCEC122BD48AC006A6695 /* TestViewController.swift in Sources */,
+				A03FCEB122BD46A0006A6695 /* Document.swift in Sources */,
+				A03FCEAF22BD46A0006A6695 /* DocumentViewController.swift in Sources */,
+				A03FCEAD22BD46A0006A6695 /* DocumentBrowserViewController.swift in Sources */,
+				A03FCEAB22BD46A0006A6695 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A03FCE9022BD444E006A6695 /* Main.storyboard */ = {
+		A03FCEB222BD46A0006A6695 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A03FCE9122BD444E006A6695 /* Base */,
+				A03FCEB322BD46A0006A6695 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		A03FCE9522BD4450006A6695 /* LaunchScreen.storyboard */ = {
+		A03FCEB722BD46A1006A6695 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A03FCE9622BD4450006A6695 /* Base */,
+				A03FCEB822BD46A1006A6695 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -162,7 +182,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A03FCE9922BD4450006A6695 /* Debug */ = {
+		A03FCEBB22BD46A1006A6695 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -223,7 +243,7 @@
 			};
 			name = Debug;
 		};
-		A03FCE9A22BD4450006A6695 /* Release */ = {
+		A03FCEBC22BD46A1006A6695 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -278,7 +298,7 @@
 			};
 			name = Release;
 		};
-		A03FCE9C22BD4450006A6695 /* Debug */ = {
+		A03FCEBE22BD46A1006A6695 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -296,7 +316,7 @@
 			};
 			name = Debug;
 		};
-		A03FCE9D22BD4450006A6695 /* Release */ = {
+		A03FCEBF22BD46A1006A6695 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -317,25 +337,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A03FCE8422BD444E006A6695 /* Build configuration list for PBXProject "Mordor" */ = {
+		A03FCEA222BD46A0006A6695 /* Build configuration list for PBXProject "Mordor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A03FCE9922BD4450006A6695 /* Debug */,
-				A03FCE9A22BD4450006A6695 /* Release */,
+				A03FCEBB22BD46A1006A6695 /* Debug */,
+				A03FCEBC22BD46A1006A6695 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A03FCE9B22BD4450006A6695 /* Build configuration list for PBXNativeTarget "Mordor" */ = {
+		A03FCEBD22BD46A1006A6695 /* Build configuration list for PBXNativeTarget "Mordor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A03FCE9C22BD4450006A6695 /* Debug */,
-				A03FCE9D22BD4450006A6695 /* Release */,
+				A03FCEBE22BD46A1006A6695 /* Debug */,
+				A03FCEBF22BD46A1006A6695 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A03FCE8122BD444E006A6695 /* Project object */;
+	rootObject = A03FCE9F22BD46A0006A6695 /* Project object */;
 }
