@@ -21,6 +21,7 @@ class TrackingControlView: UIView {
     private let smoothLabel = UILabel()
     private let responsiveLabel = UILabel()
     private let stackView = UIStackView()
+    private let gestureView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,11 +62,13 @@ class TrackingControlView: UIView {
         backgroundView.clipsToBounds = true
         backgroundView.layer.cornerRadius = 30
         
+        addSubview(gestureView)
+        
         let pan = UIPanGestureRecognizer(target: self, action: #selector(didPan(gesture:)))
-        addGestureRecognizer(pan)
+        gestureView.addGestureRecognizer(pan)
         
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(gesture:)))
-        addGestureRecognizer(pinch)
+        gestureView.addGestureRecognizer(pinch)
     }
     
     var startVertical: Float?
@@ -119,8 +122,13 @@ class TrackingControlView: UIView {
             make.top.bottom.equalToSuperview()
         }
         
+        gestureView.snp.makeConstraints { (make) in
+            make.leading.trailing.top.equalToSuperview()
+        }
+        
         backgroundView.snp.makeConstraints { (make) in
             make.leading.trailing.bottom.equalToSuperview().inset(20)
+            make.top.equalTo(gestureView.snp.bottom).offset(20)
             make.height.equalTo(60)
         }
     }
