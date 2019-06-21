@@ -137,21 +137,22 @@ class ContentScrollViewController: ViewController {
                 
                 let w = self.view.frame.width
                 let h = self.view.frame.height
-                let bottomRect = CGRect(x: 0, y: h * (1 - self.threshold), width: w, height: h * self.threshold + self.magic)
-                let topRect = CGRect(x: 0, y: -self.magic, width: w, height: h * self.threshold + self.magic)
+                let bottomRect = CGRect(x: 1, y: h * (1 - self.threshold), width: w, height: h * self.threshold + self.magic)
+                let topRect = CGRect(x: 1, y: -self.magic, width: w, height: h * self.threshold + self.magic)
 
-                if bottomRect.contains(self.previewController.focusCoordinate) {
+                if topRect.contains(self.previewController.focusCoordinate) {
+                    self.downCounter = 0
+                    self.upCounter += 1
+                    if self.upCounter > self.counterThreashold {
+                        self.scroll(in: self.scrollingDuration, isScrollingDown: false)
+                        self.upCounter = 0
+                    }
+                } else if bottomRect.contains(self.previewController.focusCoordinate) {
                     self.downCounter += 1
                     self.upCounter = 0
                     if self.downCounter > self.counterThreashold {
                         self.scroll(in: self.scrollingDuration, isScrollingDown: true)
                         self.downCounter = 0
-                    }
-                } else if topRect.contains(self.previewController.focusCoordinate) {
-                    self.downCounter = 0
-                    self.upCounter += 1
-                    if self.upCounter > self.counterThreashold {
-                        self.scroll(in: self.scrollingDuration, isScrollingDown: false)
                     }
                 } else {
                     self.downCounter = 0

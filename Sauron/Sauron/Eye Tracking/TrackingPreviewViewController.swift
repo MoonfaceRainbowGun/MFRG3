@@ -86,6 +86,8 @@ class TrackingPreviewViewController: ViewController {
         
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
+        focusView.center = view.center
+        
         updateTransform()
     }
 }
@@ -114,9 +116,9 @@ extension TrackingPreviewViewController {
         imageView.alpha = 0.8
         view.addSubview(imageView)
         
-        focusView.backgroundColor = UIColor(red: 225/255.0, green: 110/255.0, blue: 56/255.0, alpha: 0.5)
-        focusView.layer.cornerRadius = 15
-        focusView.frame.size = CGSize(width: 30, height: 30)
+        focusView.backgroundColor = UIColor(red: 225/255.0, green: 110/255.0, blue: 56/255.0, alpha: 0.2)
+        focusView.layer.cornerRadius = 30
+        focusView.frame.size = CGSize(width: 60, height: 60)
         view.addSubview(focusView)
         
         controlView.delegate = self

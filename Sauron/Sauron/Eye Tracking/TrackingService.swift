@@ -29,7 +29,7 @@ extension TrackingService {
         var horizontalMin: Float = -0.5
         var horizontalMax: Float = 0.5
         
-        var vertical: Float = 1.6
+        var vertical: Float = 1.5
         var verticalMin: Float = .pi / 2 - 0.5
         var verticalMax: Float = .pi / 2 + 0.5
         
