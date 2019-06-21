@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContentView: InfiniteScrollViewElement {
+class ContentView: UIView {
     private let textLabel = UILabel()
     
     init(counter: Int) {
