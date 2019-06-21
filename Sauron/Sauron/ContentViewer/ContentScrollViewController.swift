@@ -14,8 +14,18 @@ import SnapKit
 class ContentScrollViewController: ViewController {
     
     private let closeBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-    private let closeVibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .light)))
+    private let closeVibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .dark)))
     private let closeButton = UIButton(type: .system)
+    
+    private let segmentBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    private let segmentVibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .dark)))
+    
+    private let previewButton = UIButton(type: .system)
+    private let normalButton = UIButton(type: .system)
+    private let settingButton = UIButton(type: .system)
+    
+    private let stackView = UIStackView()
+    
     
     private let previewController = TrackingPreviewViewController()
     private let threshold: CGFloat = 0.2
@@ -64,6 +74,7 @@ class ContentScrollViewController: ViewController {
         view.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(didTapDimiss), for: .touchUpInside)
         closeBackgroundView.layer.cornerRadius = 30
+        closeBackgroundView.clipsToBounds = true
         closeButton.setImage(UIImage(named: "round_cancel_black_48pt"), for: .normal)
         closeBackgroundView.contentView.addSubview(closeVibrancyView)
         closeVibrancyView.contentView.addSubview(closeButton)
@@ -80,6 +91,45 @@ class ContentScrollViewController: ViewController {
         closeButton.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        view.addSubview(segmentBackgroundView)
+        
+        stackView.distribution = .fillEqually
+        stackView.spacing = 5
+        stackView.axis = .vertical
+        
+        previewButton.setImage(UIImage(named: "round_sentiment_satisfied_alt_black_48pt"), for: .normal)
+        previewButton.addTarget(self, action: #selector(didTapPreview), for: .touchUpInside)
+        stackView.addArrangedSubview(previewButton)
+        
+        normalButton.setImage(UIImage(named: "round_stars_black_48pt"), for: .normal)
+        normalButton.addTarget(self, action: #selector(didTapNormal), for: .touchUpInside)
+        stackView.addArrangedSubview(normalButton)
+        
+        settingButton.setImage(UIImage(named: "round_adjust_black_48pt"), for: .normal)
+        settingButton.addTarget(self, action: #selector(didTapSetting), for: .touchUpInside)
+        stackView.addArrangedSubview(settingButton)
+        
+        segmentVibrancyView.contentView.addSubview(stackView)
+        segmentBackgroundView.layer.cornerRadius = 30
+        segmentBackgroundView.clipsToBounds = true
+        segmentBackgroundView.contentView.addSubview(segmentVibrancyView)
+        
+        segmentBackgroundView.snp.makeConstraints { (make) in
+            make.width.equalTo(60)
+            make.height.equalTo(165)
+            make.trailing.equalTo(closeBackgroundView)
+            make.top.equalTo(closeBackgroundView.snp.bottom).offset(20)
+        }
+        
+        segmentVibrancyView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        stackView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview().inset(6)
+        }
+        
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
             if !self.isScrolling {
@@ -105,6 +155,24 @@ class ContentScrollViewController: ViewController {
                     self.upCounter = 0
                 }
             }
+        }
+    }
+    
+    @objc func didTapPreview() {
+        if previewController.mode != .preview {
+            previewController.mode = .preview
+        }
+    }
+    
+    @objc func didTapNormal() {
+        if previewController.mode != .hidden {
+            previewController.mode = .hidden
+        }
+    }
+    
+    @objc func didTapSetting() {
+        if previewController.mode != .setting {
+            previewController.mode = .setting
         }
     }
 

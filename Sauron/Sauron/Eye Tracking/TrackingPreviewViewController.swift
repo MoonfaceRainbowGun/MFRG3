@@ -37,7 +37,7 @@ class TrackingPreviewViewController: ViewController {
     }
 
     private var dogEyeTimer: Timer?
-    private var mode: Mode = .setting {
+    var mode: Mode = .setting {
         didSet {
             view.isUserInteractionEnabled = mode.viewInteractionEnabled
             sceneView.alpha = mode.viewAlpha
