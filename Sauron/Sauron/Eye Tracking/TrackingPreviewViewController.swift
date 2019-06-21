@@ -47,6 +47,10 @@ class TrackingPreviewViewController: ViewController {
         return vsNode
     }()
     
+    public var focusCoordinate: CGPoint {
+        return focusView.center
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

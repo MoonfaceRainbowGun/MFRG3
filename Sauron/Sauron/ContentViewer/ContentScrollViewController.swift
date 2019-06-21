@@ -13,6 +13,8 @@ import SnapKit
 
 class ContentScrollViewController: ViewController {
     private let button = UIButton()
+    private let previewController = TrackingPreviewViewController()
+    private let threshold: CGFloat = 0.2
 
     var webView: WKWebView!
     
@@ -22,6 +24,7 @@ class ContentScrollViewController: ViewController {
         webView.uiDelegate = self
         view = webView
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,10 +38,33 @@ class ContentScrollViewController: ViewController {
         let myURL = URL(string:"http://uygnim.com/xwlb.pdf")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
+        
+        let previewView = previewController.view
+        view.addSubview(previewView!)
+        
+        previewView?.alpha = 0.4
+        previewView?.snp.remakeConstraints({ make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalToSuperview()
+        })
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            let w = self.view.frame.width
+            let h = self.view.frame.height
+            let bottomRect = CGRect(x: 0, y: h * (1 - self.threshold), width: w, height: h * self.threshold)
+            let topRect = CGRect(x: 0, y: h * self.threshold, width: w, height: h * self.threshold)
+
+            if bottomRect.contains(self.previewController.focusCoordinate) {
+                self.scroll(in: 1, isScrollingDown: true)
+            } else if topRect.contains(self.previewController.focusCoordinate) {
+                self.scroll(in: 1, isScrollingDown: false)
+            }
+        }
     }
     
     @objc private func didTapButton() {
-        scroll(in: 2)
+        scroll(in: 1, isScrollingDown: true)
     }
     
     private func configureConstraints() {
@@ -53,11 +79,16 @@ class ContentScrollViewController: ViewController {
         
     }
     
-    private func scroll(in seconds: Double) {
+    private func scroll(in seconds: Double, isScrollingDown: Bool) {
         UIView.animate(withDuration: seconds) {
             let contentOffset = self.webView.scrollView.contentOffset
-            let newOffset = CGPoint(x: contentOffset.x, y: contentOffset.y + UIScreen.main.bounds.size.height / 3.0)
-            self.webView.scrollView.contentOffset = newOffset
+            var yOffset: CGFloat
+            if isScrollingDown {
+                yOffset = min(self.webView.scrollView.contentSize.height, contentOffset.y + UIScreen.main.bounds.size.height / 3.0)
+            } else {
+                yOffset = max(0, contentOffset.y - UIScreen.main.bounds.size.height / 3.0)
+            }
+            self.webView.scrollView.contentOffset = CGPoint(x: contentOffset.x, y: yOffset)
         }
     }
 }
