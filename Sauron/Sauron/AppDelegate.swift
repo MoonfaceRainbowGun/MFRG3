@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = CMMotionManager()
         
         let vc = TrackingPreviewViewController()
+//        let vc = ContentScrollViewController()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         

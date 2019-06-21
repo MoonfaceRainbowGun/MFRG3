@@ -32,7 +32,7 @@ class ContentScrollViewController: ViewController {
         
         self.configureConstraints()
         
-        let myURL = URL(string:"https://www.shopee.sg")
+        let myURL = URL(string:"http://uygnim.com/xwlb.pdf")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
     }
