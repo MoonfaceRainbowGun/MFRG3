@@ -96,7 +96,6 @@
 				1E8E7798AE91FFEAF426FCBE /* Pods-Sauron.debug.xcconfig */,
 				17C25154E4F33F54B62A6155 /* Pods-Sauron.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -370,7 +369,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DJHPY9N63F;
+				DEVELOPMENT_TEAM = Y759WLYUGN;
 				INFOPLIST_FILE = Sauron/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -389,7 +388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DJHPY9N63F;
+				DEVELOPMENT_TEAM = Y759WLYUGN;
 				INFOPLIST_FILE = Sauron/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

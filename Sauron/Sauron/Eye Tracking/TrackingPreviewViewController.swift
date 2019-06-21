@@ -21,6 +21,8 @@ class TrackingPreviewViewController: ViewController {
     private lazy var nodeEyeRight = createDogEyeLightBeam()
     private lazy var nodeFocus = createFocusPoint()
     
+    private var pastPositions: [simd_float3] = []
+
     var virtualScreenNode: SCNNode = {
         let screenGeometry = SCNPlane(width: 1, height: 1)
         screenGeometry.firstMaterial?.isDoubleSided = true
@@ -155,11 +157,24 @@ extension TrackingPreviewViewController {
         let bb = ((eyeY * targetZ - targetY * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ)) + 0.07
         
         
-        nodeFocus.worldPosition = SCNVector3Make(aa, bb, cc)
+        updateTargetPosition(position: simd_float3(x: aa, y: bb, z: cc))
     }
     
-    private func updateTargetPosition(left: CGPoint, right: CGPoint) {
-        
+    private func updateTargetPosition(position: simd_float3) {
+        pastPositions.append(position)
+        let lastTen = pastPositions.suffix(10)
+        var sumX: Float = 0.0
+        var sumY: Float = 0.0
+        var sumZ: Float = 0.0
+        for item in lastTen {
+            sumX += item.x
+            sumY += item.y
+            sumZ += item.z
+        }
+        sumX /= Float(lastTen.count)
+        sumY /= Float(lastTen.count)
+        sumZ /= Float(lastTen.count)
+        nodeFocus.worldPosition = SCNVector3(x: sumX, y: sumY, z: sumZ)
     }
     
     private func update(node: SCNNode, anchor: ARAnchor) {
