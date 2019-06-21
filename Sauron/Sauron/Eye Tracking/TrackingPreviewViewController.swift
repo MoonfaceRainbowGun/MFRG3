@@ -19,10 +19,21 @@ class TrackingPreviewViewController: ViewController {
     private let nodeFace = SCNNode()
     private lazy var nodeEyeLeft = createDogEyeLightBeam()
     private lazy var nodeEyeRight = createDogEyeLightBeam()
-//    private lazy var nodeEye = createDogEyeLightBeam()
+    private lazy var nodeFocus = createFocusPoint()
     
-    private let nodeEyeTargetLeft = SCNNode()
-    private let nodeEyeTargetRight = SCNNode()
+    var virtualScreenNode: SCNNode = {
+        let screenGeometry = SCNPlane(width: 1, height: 1)
+        // SceneKit이 표면의 앞면과 뒷면을 렌더링 해야하는지 여부를 결정
+        screenGeometry.firstMaterial?.isDoubleSided = true
+        screenGeometry.firstMaterial?.diffuse.contents = UIColor.green
+        let vsNode = SCNNode()
+        vsNode.geometry = screenGeometry
+        return vsNode
+    }()
+    
+    private var nodeEyeTargetLeft: SCNNode?
+    private var nodeEyeTargetRight: SCNNode?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,14 +68,10 @@ extension TrackingPreviewViewController {
         nodeFace.addChildNode(nodeEyeLeft)
         nodeFace.addChildNode(nodeEyeRight)
         
-        nodeEyeLeft.addChildNode(nodeEyeTargetLeft)
-        nodeEyeRight.addChildNode(nodeEyeTargetRight)
-        
-        
+        nodeVirtualPad.addChildNode(virtualScreenNode)
         nodeRoot.addChildNode(nodeVirtualPad)
         
-        nodeEyeTargetLeft.position.z = 2
-        nodeEyeTargetRight.position.z = 2
+        nodeRoot.addChildNode(nodeFocus)
         
         view.addSubview(sceneView)
     }
@@ -76,86 +83,112 @@ extension TrackingPreviewViewController {
     }
     
     private func createDogEyeLightBeam() -> SCNNode {
-        let height: CGFloat = 0.2
-        let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: height)
-        
-        geometry.radialSegmentCount = 10
-        geometry.firstMaterial?.diffuse.contents = UIColor.yellow
-        
-        let eyeNode = SCNNode()
-        eyeNode.geometry = geometry
-        eyeNode.eulerAngles.x = -.pi / 2
-        
-        
-        let child = SCNNode()
-        let geo = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: height)
-        child.geometry = geo
-        child.localTranslate(by: SCNVector3Make(0, -0.2, 0))
-        geo.firstMaterial?.diffuse.contents = UIColor.red
-        eyeNode.addChildNode(child)
-        
-        eyeNode.position.z = 0.1
+        let height: CGFloat = 0.4
         let parentNode = SCNNode()
-        parentNode.addChildNode(eyeNode)
+        
+        do {
+            let geometry = SCNCone(topRadius: 0.001, bottomRadius: 0.001, height: height)
+            
+            geometry.radialSegmentCount = 10
+            geometry.firstMaterial?.diffuse.contents = UIColor.yellow
+            
+            let eyeNode = SCNNode()
+            eyeNode.geometry = geometry
+            
+            var transform = SCNMatrix4Identity
+            transform = SCNMatrix4Translate(transform, 0, Float(height) / 2, 0)
+            transform = SCNMatrix4Rotate(transform, 1.5, 1, 0, 0)
+            eyeNode.transform = transform
+            
+            parentNode.addChildNode(eyeNode)
+        }
+        
+        
+        do {
+            let target = SCNNode()
+            
+            let geometry = SCNSphere(radius: 0.005)
+            geometry.firstMaterial?.diffuse.contents = UIColor.red
+            target.geometry = geometry
+            
+            var transform = SCNMatrix4Identity
+            transform = SCNMatrix4Translate(transform, 0, 2, 0)
+            transform = SCNMatrix4Rotate(transform, 1.5, 1, 0, 0)
+            target.transform = transform
+            
+            parentNode.addChildNode(target)
+            
+            if nodeEyeTargetLeft == nil {
+                nodeEyeTargetLeft = target
+            } else {
+                nodeEyeTargetRight = target
+            }
+        }
         
         return parentNode
+    }
+    
+    private func createFocusPoint() -> SCNNode {
+        let node = SCNNode()
+        let geometry = SCNSphere(radius: 0.005)
+        geometry.firstMaterial?.diffuse.contents = UIColor.red
+        node.geometry = geometry
+        return node
     }
 }
 
 // MARK: Update
 extension TrackingPreviewViewController {
     private func update(faceAnchor: ARFaceAnchor) {
+        
         nodeEyeLeft.simdTransform = faceAnchor.leftEyeTransform
         nodeEyeRight.simdTransform = faceAnchor.rightEyeTransform
+        let padScreenSize = CGSize(width: 0.1785, height: 0.2476)
         
-        var hittingPointLeft = CGPoint()
-        var hittingPointRight = CGPoint()
+        print()
+        print()
+        print()
         
-        let padScreenSize = CGSize(width: 0.0774, height: 0.1575)
-        let padScreenPointSize = view.window?.bounds ?? .zero
+        let eyeX = (nodeEyeLeft.worldPosition.x + nodeEyeRight.worldPosition.x) / 2
+        print("x", eyeX)
+        let eyeY = (nodeEyeLeft.worldPosition.y + nodeEyeRight.worldPosition.y) / 2
+        print("y", eyeY)
+        let eyeZ = (nodeEyeLeft.worldPosition.z + nodeEyeRight.worldPosition.z) / 2
+        print("z", eyeZ)
         
-        guard let resultLeft = nodeVirtualPad
-            .hitTestWithSegment(
-                from: nodeEyeTargetLeft.worldPosition,
-                to: nodeEyeLeft.worldPosition,
-                options: nil
-            )
-            .first else { return }
+        let targetX = (nodeEyeTargetLeft!.worldPosition.x + nodeEyeTargetRight!.worldPosition.x) / 2
+        print("x", targetX)
+        let targetY = (nodeEyeTargetLeft!.worldPosition.y + nodeEyeTargetRight!.worldPosition.y) / 2
+        print("y", targetY)
+        let targetZ = (nodeEyeTargetLeft!.worldPosition.z + nodeEyeTargetRight!.worldPosition.z) / 2
+        print("z", targetZ)
         
-        guard let resultRight = nodeVirtualPad
-            .hitTestWithSegment(
-                from: nodeEyeTargetRight.worldPosition,
-                to: nodeEyeRight.worldPosition,
-                options: nil
-            )
-            .first else { return }
         
-        hittingPointLeft.x = CGFloat(resultLeft.localCoordinates.x) / (padScreenSize.width / 2) * padScreenPointSize.width
-        hittingPointLeft.y = CGFloat(resultLeft.localCoordinates.y) / (padScreenSize.height / 2) * padScreenPointSize.height
+        let cc = Float(-0.1)
+        let aa = ((eyeX * targetZ - targetX * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ))
+        let bb = ((eyeY * targetZ - targetY * eyeZ + (targetX - eyeX) * cc) / (targetZ - eyeZ)) + 0.07
         
-        hittingPointRight.x = CGFloat(resultRight.localCoordinates.x) / (padScreenSize.width / 2) * padScreenPointSize.width
-        hittingPointRight.y = CGFloat(resultRight.localCoordinates.y) / (padScreenSize.height / 2) * padScreenPointSize.height
         
-        updateTargetPosition(left: hittingPointLeft, right: hittingPointRight)
+        nodeFocus.worldPosition = SCNVector3Make(aa, bb, cc)
     }
     
     private func updateTargetPosition(left: CGPoint, right: CGPoint) {
-    
+        
     }
     
     private func update(node: SCNNode, anchor: ARAnchor) {
-        DispatchQueue.main.async {
-            self.nodeFace.transform = node.transform
-            guard let faceAnchor = anchor as? ARFaceAnchor else { return }
-            self.update(faceAnchor: faceAnchor)
-        }
+        nodeFace.transform = node.transform
+        guard let faceAnchor = anchor as? ARFaceAnchor else { return }
+        update(faceAnchor: faceAnchor)
     }
 }
 
 // MARK: ARSCNViewDelegate
 extension TrackingPreviewViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        update(node: node, anchor: anchor)
+        DispatchQueue.main.async {
+            self.update(node: node, anchor: anchor)
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
@@ -166,7 +199,9 @@ extension TrackingPreviewViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        update(node: node, anchor: anchor)
+        DispatchQueue.main.async {
+            self.update(node: node, anchor: anchor)
+        }
     }
 }
 
