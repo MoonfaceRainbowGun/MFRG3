@@ -39,6 +39,9 @@ class TrackingPreviewViewController: ViewController {
     private var blinkLeftInProgress = false
     private var blinkRightInProgress = false
 
+    private let timerInterval: Double = 1.0
+    private var dogEyeTimer: Timer?
+
     var virtualScreenNode: SCNNode = {
         let screenGeometry = SCNPlane(width: 1, height: 1)
         screenGeometry.firstMaterial?.isDoubleSided = true
@@ -163,6 +166,22 @@ extension TrackingPreviewViewController {
         }
     }
     
+    private func configureTimer() {
+        configureOpacity(opacity: 1.0)
+        dogEyeTimer?.invalidate()
+        dogEyeTimer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: false) { (t) in
+            DispatchQueue.main.async {
+                self.configureOpacity(opacity: 0.0)
+            }
+        }
+    }
+    
+    private func configureOpacity(opacity: CGFloat) {
+        [self.nodeEyeBeamLeft, self.nodeEyeBeamRight, self.nodeFocus].forEach { (node) in
+            node?.opacity = opacity
+        }
+    }
+    
     private func createDogEyeLightBeam(isLeft: Bool) -> SCNNode {
         let parentNode = SCNNode()
         
@@ -226,6 +245,8 @@ extension TrackingPreviewViewController {
 // MARK: Update
 extension TrackingPreviewViewController {
     private func update(faceAnchor: ARFaceAnchor) {
+        self.configureTimer()
+
         if let value = faceAnchor.blendShapes[.eyeBlinkLeft]?.floatValue {
             if !blinkLeftInProgress && CGFloat(value) > blinkCloseThreshold {
                 blinkLeftInProgress = true
