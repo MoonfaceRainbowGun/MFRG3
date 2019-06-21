@@ -17,6 +17,7 @@ class TrackingPreviewViewController: ViewController {
     private lazy var focusView = UIView()
     private let pitchSlider = UISlider()
     private let rangeSlider = UISlider()
+    private let rollSlider = UISlider()
     
     private let nodeVirtualPad = SCNNode()
     private let nodeFace = SCNNode()
@@ -97,13 +98,34 @@ extension TrackingPreviewViewController {
         rangeSlider.value = padDistance
         rangeSlider.addTarget(self, action: #selector(didSlideRangeSlider), for: .valueChanged)
         view.addSubview(rangeSlider)
+        
+        rollSlider.minimumValue = -0.1
+        rollSlider.maximumValue = 0.1
+        rollSlider.value = 0
+        rollSlider.addTarget(self, action: #selector(didSliderRollSlider), for: .valueChanged)
+        view.addSubview(rollSlider)
     }
     
     @objc func didSlidePitchSlider() {
+        updateTransform()
+    }
+    
+    @objc
+    func didSlideRangeSlider() {
+        padDistance = rangeSlider.value
+    }
+    
+    @objc
+    func didSliderRollSlider() {
+        updateTransform()
+    }
+    
+    private func updateTransform() {
         [nodeEyeTargetLeft, nodeEyeTargetRight].forEach { (node) in
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, 2, 0)
             transform = SCNMatrix4Rotate(transform, pitchSlider.value, 1, 0, 0)
+            transform = SCNMatrix4Rotate(transform, rollSlider.value, 0, 1, 0)
             node?.transform = transform
         }
         
@@ -111,12 +133,9 @@ extension TrackingPreviewViewController {
             var transform = SCNMatrix4Identity
             transform = SCNMatrix4Translate(transform, 0, Float(height) / 2, 0)
             transform = SCNMatrix4Rotate(transform, pitchSlider.value, 1, 0, 0)
+            transform = SCNMatrix4Rotate(transform, rollSlider.value, 0, 1, 0)
             node?.transform = transform
         }
-    }
-    
-    @objc func didSlideRangeSlider() {
-        padDistance = rangeSlider.value
     }
     
     private func configureConstraints() {
@@ -131,6 +150,11 @@ extension TrackingPreviewViewController {
         rangeSlider.snp.makeConstraints { (make) in
             make.leading.trailing.equalTo(pitchSlider)
             make.bottom.equalTo(pitchSlider.snp.top).offset(-20)
+        }
+        
+        rollSlider.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(rangeSlider)
+            make.bottom.equalTo(rangeSlider.snp.top).offset(-20)
         }
     }
     
