@@ -34,8 +34,8 @@ extension TrackingService {
         var verticalMax: Float = .pi / 2 + 0.5
         
         var sightConeLength: CGFloat = 0.4
-        var blinkOpenThreshold: CGFloat = 0.2
-        var blinkCloseThreshold: CGFloat = 0.8
+        var blinkOpenThreshold: CGFloat = 0.3
+        var blinkCloseThreshold: CGFloat = 0.7
         
         var dogEyeDismissDuration: Double = 0.2
         var smoothNess: Int = 20

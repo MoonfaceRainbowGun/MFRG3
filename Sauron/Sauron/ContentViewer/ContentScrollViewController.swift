@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import WebKit
 import SnapKit
+import AudioToolbox
 
 class ContentScrollViewController: ViewController {
     
@@ -25,6 +26,7 @@ class ContentScrollViewController: ViewController {
     private let settingButton = UIButton(type: .system)
     
     private let stackView = UIStackView()
+    private let whiteView = UIView()
     
     
     private let previewController = TrackingPreviewViewController()
@@ -37,6 +39,7 @@ class ContentScrollViewController: ViewController {
     private var upCounter = 0
     private var downCounter = 0
     private let counterThreashold = 7
+    
     
     private lazy var maxYOffset = self.webView.scrollView.contentSize.height - self.webView.scrollView.frame.height
     private let minYOffset: CGFloat = 0
@@ -132,6 +135,17 @@ class ContentScrollViewController: ViewController {
             make.edges.equalToSuperview().inset(6)
         }
         
+        previewController.didDetectDoubleBlink = { [weak self] in
+            self?.screenshot()
+        }
+        
+        whiteView.alpha = 0
+        whiteView.isUserInteractionEnabled = false
+        whiteView.backgroundColor = .white
+        view.addSubview(whiteView)
+        whiteView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
             if !self.isScrolling {
@@ -160,6 +174,25 @@ class ContentScrollViewController: ViewController {
                     self.upCounter = 0
                 }
             }
+        }
+    }
+    
+    var screenshotInProgress = false
+    private func screenshot() {
+        guard !screenshotInProgress else {
+            return
+        }
+        screenshotInProgress = true
+        let soundID: SystemSoundID = 1108
+        AudioServicesPlaySystemSound(soundID)
+        UIView.animate(withDuration: 0.1, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.whiteView.alpha = 1
+        }) { _ in
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
+                self.whiteView.alpha = 0
+            }, completion: { _ in
+                self.screenshotInProgress = false
+            })
         }
     }
     
