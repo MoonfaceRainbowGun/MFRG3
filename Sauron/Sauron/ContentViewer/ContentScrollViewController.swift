@@ -182,6 +182,10 @@ class ContentScrollViewController: ViewController {
         guard !screenshotInProgress else {
             return
         }
+        guard previewController.mode == .preview else {
+            return
+        }
+        
         screenshotInProgress = true
         let soundID: SystemSoundID = 1108
         AudioServicesPlaySystemSound(soundID)
