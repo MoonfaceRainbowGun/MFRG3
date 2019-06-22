@@ -48,7 +48,7 @@ class TrackingPreviewViewController: ViewController {
             controlView.isHidden = !mode.showNodes
             nodeFace.isHidden = controlView.isHidden
             nodeFocus.isHidden = nodeFace.isHidden
-            focusView.isHidden = mode == .hidden
+            focusView.isHidden = mode != .preview
         }
     }
 
@@ -219,7 +219,7 @@ extension TrackingPreviewViewController {
     private func createFocusPoint() -> SCNNode {
         let node = SCNNode()
         let geometry = SCNSphere(radius: 0.002)
-        geometry.firstMaterial?.diffuse.contents = UIColor(white: 0.8, alpha: 0.7)
+        geometry.firstMaterial?.diffuse.contents = UIColor(red: 225/255.0, green: 110/255.0, blue: 56/255.0, alpha: 1)
         node.geometry = geometry
         return node
     }
