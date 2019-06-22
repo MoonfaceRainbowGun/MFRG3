@@ -179,10 +179,11 @@ class ContentScrollViewController: ViewController {
     
     var screenshotInProgress = false
     private func screenshot() {
+        return
         guard !screenshotInProgress else {
             return
         }
-        guard previewController.mode == .preview else {
+        guard previewController.mode == .setting else {
             return
         }
         
